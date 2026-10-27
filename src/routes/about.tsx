@@ -127,8 +127,8 @@ function About() {
                 transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
                 className="absolute -bottom-6 -left-6 rounded-2xl border border-primary/40 bg-background/90 p-6 backdrop-blur"
               >
-                <p className="font-display text-4xl text-primary">
-                  {STATS[0].value}+
+                  <p className="font-display text-4xl text-primary">
+                  {STATS[0]!.value}+
                 </p>
                 <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
                   Players coached
