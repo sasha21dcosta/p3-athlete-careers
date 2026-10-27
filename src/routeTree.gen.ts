@@ -11,7 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as CareersRouteImport } from './routes/careers'
+import { Route as CircleRouteImport } from './routes/circle'
+import { Route as ClientsRouteImport } from './routes/clients'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as TournamentsRouteImport } from './routes/tournaments'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +30,134 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CircleRoute = CircleRouteImport.update({
+  id: '/circle',
+  path: '/circle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TournamentsRoute = TournamentsRouteImport.update({
+  id: '/tournaments',
+  path: '/tournaments',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/circle': typeof CircleRoute
+  '/clients': typeof ClientsRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/tournaments': typeof TournamentsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/circle': typeof CircleRoute
+  '/clients': typeof ClientsRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/tournaments': typeof TournamentsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/circle': typeof CircleRoute
+  '/clients': typeof ClientsRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/tournaments': typeof TournamentsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/team'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/careers'
+    | '/circle'
+    | '/clients'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/team'
+    | '/tournaments'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/team'
-  id: '__root__' | '/' | '/about' | '/team'
+  to:
+    | '/'
+    | '/about'
+    | '/careers'
+    | '/circle'
+    | '/clients'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/team'
+    | '/tournaments'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/careers'
+    | '/circle'
+    | '/clients'
+    | '/contact'
+    | '/gallery'
+    | '/services'
+    | '/team'
+    | '/tournaments'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
+  CircleRoute: typeof CircleRoute
+  ClientsRoute: typeof ClientsRoute
+  ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
+  ServicesRoute: typeof ServicesRoute
   TeamRoute: typeof TeamRoute
+  TournamentsRoute: typeof TournamentsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +176,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/circle': {
+      id: '/circle'
+      path: '/circle'
+      fullPath: '/circle'
+      preLoaderRoute: typeof CircleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tournaments': {
+      id: '/tournaments'
+      path: '/tournaments'
+      fullPath: '/tournaments'
+      preLoaderRoute: typeof TournamentsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +238,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CareersRoute: CareersRoute,
+  CircleRoute: CircleRoute,
+  ClientsRoute: ClientsRoute,
+  ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
+  ServicesRoute: ServicesRoute,
   TeamRoute: TeamRoute,
+  TournamentsRoute: TournamentsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
