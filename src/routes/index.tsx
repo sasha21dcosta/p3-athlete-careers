@@ -92,7 +92,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="noise-overlay relative flex min-h-screen items-center overflow-hidden">
+    <section className="noise-overlay relative flex min-h-screen items-center overflow-hidden bg-navy">
       <div className="absolute inset-0">
         <img
           src={heroImg}
@@ -101,8 +101,8 @@ function Hero() {
           width={1024}
           height={1024}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/60" />
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-20 sm:px-6">
@@ -119,7 +119,7 @@ function Hero() {
           P3 Sports Management Company
         </motion.div>
 
-        <h1 className="font-display max-w-4xl text-[17vw] leading-[0.88] text-foreground sm:text-8xl lg:text-9xl">
+        <h1 className="font-display max-w-4xl text-[13vw] leading-[1.02] text-navy-foreground sm:text-7xl lg:text-[6.5rem]">
           {["Play.", "Practice.", "Persevere."].map((word, i) => (
             <motion.span
               key={word}
@@ -156,7 +156,7 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
-          className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          className="mt-5 max-w-xl text-base leading-relaxed text-navy-foreground/75 sm:text-lg"
         >
           Ignite your passion, learn to deliver, master the strokes, play to
           perfection — with P3 Sports. Your connect to the athlete within{" "}
@@ -170,15 +170,15 @@ function Hero() {
           className="mt-9 flex flex-wrap gap-4"
         >
           <Link
-            to="/programs"
+            to="/services"
             className="glow-primary group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
           >
             Train with P3
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
           <Link
-            to="/events"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-7 py-3.5 text-sm font-bold text-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
+            to="/tournaments"
+            className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/30 bg-transparent px-7 py-3.5 text-sm font-bold text-navy-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
           >
             <Trophy className="h-4 w-4" />
             Upcoming Tournament
@@ -204,7 +204,7 @@ function Hero() {
         transition={{ delay: 1.6 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-border p-1.5">
+        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-navy-foreground/40 p-1.5">
           <motion.span
             animate={{ y: [0, 12, 0] }}
             transition={{ repeat: Infinity, duration: 1.6 }}
@@ -353,17 +353,17 @@ function FeaturedEvent() {
               height={1024}
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/35" />
             <div className="relative grid gap-8 p-8 sm:p-12 lg:grid-cols-2">
               <div>
                 <p className="mb-3 flex items-center gap-2 text-xs font-bold tracking-[0.3em] text-primary uppercase">
                   <Zap className="h-4 w-4" /> {UPCOMING_EVENT.edition} ·
                   Registration open
                 </p>
-                <h2 className="font-display text-4xl leading-[0.95] text-foreground sm:text-6xl">
+                <h2 className="font-display text-4xl leading-[1.05] text-navy-foreground sm:text-5xl lg:text-6xl">
                   {UPCOMING_EVENT.title}
                 </h2>
-                <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+                <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-navy-foreground">
                   <Users className="h-4 w-4 text-primary" />{" "}
                   {UPCOMING_EVENT.prizes}
                 </p>
@@ -371,7 +371,7 @@ function FeaturedEvent() {
                   {UPCOMING_EVENT.categories.map((c) => (
                     <span
                       key={c}
-                      className="rounded-full border border-border bg-card/70 px-4 py-1.5 text-xs font-semibold text-foreground backdrop-blur"
+                      className="rounded-full border border-navy-foreground/25 bg-navy/60 px-4 py-1.5 text-xs font-semibold text-navy-foreground backdrop-blur"
                     >
                       {c}
                     </span>
@@ -498,13 +498,13 @@ function FinalCta() {
               height={1024}
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-background/60" />
+            <div className="absolute inset-0 bg-navy/75" />
             <div className="relative px-6 py-20 text-center sm:px-12">
-              <h2 className="font-display text-5xl leading-[0.9] text-foreground sm:text-7xl">
+              <h2 className="font-display text-5xl leading-[1.02] text-navy-foreground sm:text-6xl lg:text-7xl">
                 Ready to meet the{" "}
                 <span className="text-primary">athlete within you?</span>
               </h2>
-              <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
+              <p className="mx-auto mt-5 max-w-xl text-navy-foreground/75">
                 Whether you're a professional rekindling a passion, an amateur
                 chasing quality training, or a master ready to share your
                 knowledge — P3 has a ground for you.
@@ -518,7 +518,7 @@ function FinalCta() {
                 </Link>
                 <Link
                   to="/circle"
-                  className="rounded-full border border-border bg-background/70 px-8 py-4 text-sm font-bold text-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
+                  className="rounded-full border border-navy-foreground/30 bg-transparent px-8 py-4 text-sm font-bold text-navy-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
                 >
                   Join the P3 Circle
                 </Link>
