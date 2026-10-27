@@ -363,3 +363,72 @@ export const PLAYER_SPOTLIGHT = [
   { name: "Rajdeep Singha", group: "Under 18" },
   { name: "Gauri Deshmukh", group: "Under 40" },
 ];
+
+export const CLIENT_SECTORS = [
+  {
+    title: "Corporates & Enterprises",
+    desc: "Inter-corporate championships, in-house leagues and employee wellness programmes that build teams and reignite workplace energy.",
+    points: ["Inter-corporate TT tournaments", "Employee sports leagues", "Annual sports days", "Offsite & team-building events"],
+  },
+  {
+    title: "Schools & Institutions",
+    desc: "School team training, inter-school championships and grassroots development programmes for young athletes.",
+    points: ["School team coaching", "Inter-school championships", " Grassroot talent identification", "Physical education support"],
+  },
+  {
+    title: "Residential Clubs & Societies",
+    desc: "Clubhouse coaching and community programmes for residential societies that keep every age group active.",
+    points: ["Clubhouse coaching programmes", "Community rankings & leagues", "Holiday sports camps", "Senior citizen fitness batches"],
+  },
+  {
+    title: "Sports Associations & Bodies",
+    desc: "Staging assistance, officiating and full tournament management for district and state-level bodies.",
+    points: ["District & state championships", "Officiating & umpiring", "Staging assistance", "Consultancy & mentoring"],
+  },
+];
+
+export const PARTNER_VENUES = [
+  "Pawar Public School, Chandivali — Mumbai",
+  "Khalishani Mahavidyala — Chandannagore, West Bengal",
+  "ICC Centre — California, USA",
+  "Corporate campuses across Mumbai",
+  "Residential clubhouses, Powai & Chandivali",
+];
+
+export const CAREER_OPENINGS = [
+  {
+    title: "Table Tennis Coach",
+    type: "Coaching",
+    location: "Mumbai — Powai / Chandivali",
+    schedule: "Full-time & part-time batches",
+    desc: "Lead academy batches for juniors and adults, design training blocks and prepare players for tournament play.",
+  },
+  {
+    title: "Tournament & Events Manager",
+    type: "Events",
+    location: "Mumbai (travel across India)",
+    schedule: "Full-time",
+    desc: "Plan and stage corporate, inter-school and state-level championships end to end — venues, draws, officiating and awards.",
+  },
+  {
+    title: "Sports Marketing Associate",
+    type: "Marketing",
+    location: "Mumbai",
+    schedule: "Full-time",
+    desc: "Grow the P3 community — campaigns, sponsorships, social media and partnerships for our events and programmes.",
+  },
+  {
+    title: "Grassroots Programme Coordinator",
+    type: "Community",
+    location: "Mumbai & Chandannagore",
+    schedule: "Full-time",
+    desc: "Run under-privileged and school outreach programmes, identifying and mentoring young talent from the ground up.",
+  },
+];
+
+export const CAREER_PERKS = [
+  "Work alongside India's first ITTF Level 3 certified woman coach",
+  "Stage events that reach 1,000+ players across the country",
+  "Learn event management, coaching science and sports business on the job",
+  "A young, passionate team that plays as hard as it works",
+];
