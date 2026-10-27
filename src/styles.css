@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * P3 Sports design system — dark, high-energy athletic theme.
- * All colors in oklch. Display font: Bebas Neue. Body: Manrope.
+ * P3 Sports design system — light, professional brand theme.
+ * Palette: Navy #0E1621 (text/sections), Orange #FF7A1A (primary),
+ * Teal #00B3A4 (accent), on soft grey #F4F7FA surfaces. Font: Poppins.
  */
 
 @theme inline {
@@ -36,32 +37,37 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-flare: var(--flare);
-  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-teal: var(--accent);
+  --font-display: "Poppins", ui-sans-serif, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.145 0.012 275);
-  --foreground: oklch(0.96 0.008 85);
-  --card: oklch(0.19 0.014 275);
-  --card-foreground: oklch(0.96 0.008 85);
-  --popover: oklch(0.19 0.014 275);
-  --popover-foreground: oklch(0.96 0.008 85);
-  --primary: oklch(0.72 0.19 45);
-  --primary-foreground: oklch(0.14 0.02 45);
-  --secondary: oklch(0.24 0.02 275);
-  --secondary-foreground: oklch(0.96 0.008 85);
-  --muted: oklch(0.24 0.018 275);
-  --muted-foreground: oklch(0.68 0.02 275);
-  --accent: oklch(0.78 0.13 195);
-  --accent-foreground: oklch(0.14 0.02 195);
+  --background: oklch(0.973 0.007 240);
+  --foreground: oklch(0.18 0.025 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.025 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.025 255);
+  --primary: oklch(0.73 0.19 45);
+  --primary-foreground: oklch(0.99 0.002 85);
+  --secondary: oklch(0.93 0.012 240);
+  --secondary-foreground: oklch(0.18 0.025 255);
+  --muted: oklch(0.94 0.008 240);
+  --muted-foreground: oklch(0.5 0.028 255);
+  --accent: oklch(0.67 0.12 185);
+  --accent-foreground: oklch(0.99 0.002 185);
   --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 85);
-  --border: oklch(0.98 0.008 85 / 10%);
-  --input: oklch(0.98 0.008 85 / 14%);
-  --ring: oklch(0.72 0.19 45);
+  --destructive-foreground: oklch(0.99 0.002 85);
+  --border: oklch(0.18 0.025 255 / 10%);
+  --input: oklch(0.18 0.025 255 / 14%);
+  --ring: oklch(0.73 0.19 45);
   --flare: oklch(0.83 0.16 95);
+  --navy: oklch(0.19 0.032 255);
+  --navy-foreground: oklch(0.97 0.006 240);
 }
 
 @layer base {
@@ -90,7 +96,8 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   .text-stroke {
