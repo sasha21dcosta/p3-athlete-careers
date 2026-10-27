@@ -162,7 +162,7 @@ export function Footer() {
               href={SITE.facebook}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-semibold text-navy-foreground/80 transition-colors hover:border-primary hover:text-primary"
+              className="rounded-full border border-navy-foreground/20 px-4 py-1.5 text-xs font-semibold text-navy-foreground/80 transition-colors hover:border-primary hover:text-primary"
             >
               Facebook
             </a>
@@ -170,16 +170,16 @@ export function Footer() {
               href={SITE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              className="rounded-full border border-navy-foreground/20 px-4 py-1.5 text-xs font-semibold text-navy-foreground/80 transition-colors hover:border-primary hover:text-primary"
             >
               LinkedIn
             </a>
           </div>
         </div>
         <div>
-          <h4 className="font-display text-lg text-foreground">Explore</h4>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            {LINKS.slice(1).map((l) => (
+          <h4 className="font-display text-lg text-navy-foreground">Explore</h4>
+          <ul className="mt-4 space-y-2 text-sm text-navy-foreground/70">
+            {explore.map((l) => (
               <li key={l.to}>
                 <Link to={l.to} className="transition-colors hover:text-primary">
                   {l.label}
@@ -189,8 +189,8 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-display text-lg text-foreground">Reach us</h4>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          <h4 className="font-display text-lg text-navy-foreground">Reach us</h4>
+          <ul className="mt-4 space-y-2 text-sm text-navy-foreground/70">
             <li>
               <a href={`tel:${SITE.phonePrimary}`} className="hover:text-primary">
                 {SITE.phonePrimary}
@@ -211,10 +211,13 @@ export function Footer() {
               <br />
               {SITE.address.line4}
             </li>
+            <li className="pt-1 leading-relaxed">
+              Also at: {SITE.venueChandannagore}
+            </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
+      <div className="border-t border-navy-foreground/10 py-5 text-center text-xs text-navy-foreground/60">
         © {new Date().getFullYear()} P3 Sports Management Company — your connect
         to the athlete within YOU.
       </div>
