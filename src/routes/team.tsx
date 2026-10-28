@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { Medal, Globe2, Award } from "lucide-react";
-import { useState } from "react";
 
 import {
   PageHero,
@@ -8,7 +6,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/site/anim";
-import { TEAM } from "@/data/content";
+import { TEAM, type TeamMember } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -19,7 +17,7 @@ export const Route = createFileRoute("/team")({
       {
         name: "description",
         content:
-          "Meet the P3 Sports team — founded by international table tennis player and India's first ITTF Level 3 certified woman coach, Moonmoon Mukerjee.",
+          "Meet the P3 Sports team — founded by international table tennis player and India's first ITTF Level 3 certified woman coach, Moonmoon Mukherjee.",
       },
       { property: "og:title", content: "Team — P3 Sports" },
       {
@@ -35,101 +33,77 @@ export const Route = createFileRoute("/team")({
 });
 
 function Team() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const founder = TEAM.find((m) => m.featured) ?? TEAM[0];
+  const leadership = TEAM.filter((m) => !m.featured);
 
   return (
     <>
       <PageHero
-        eyebrow="The people behind P3"
+        eyebrow="Team"
         title={
           <>
-            Masters of the <span className="text-primary">game</span>
+            The people behind{" "}
+            <span className="text-primary">P3 Sports</span>
           </>
         }
-        sub="A combination of reputed sports experts and industry professionals on our Board of Directors and advisors."
+        sub="Reputed sports experts and industry professionals guiding coaching, events and community programmes across India."
       />
 
-      <section className="pb-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <Stagger className="space-y-4">
-            {TEAM.map((member, i) => {
-              const open = openIndex === i;
-              return (
-                <StaggerItem key={member.name}>
-                  <motion.button
-                    onClick={() => setOpenIndex(open ? null : i)}
-                    layout
-                    className={cn(
-                      "w-full cursor-pointer rounded-2xl border p-5 text-left transition-colors sm:p-6",
-                      open
-                        ? "border-primary/50 bg-card"
-                        : "border-border bg-card/50 hover:border-primary/30",
-                    )}
-                  >
-                    <div className="flex items-center gap-5">
-                      <motion.span
-                        animate={
-                          open ? { rotate: 0, scale: 1.05 } : { rotate: -4 }
-                        }
-                        className={cn(
-                          "font-display flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-2xl",
-                          open
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-primary/15 text-primary",
-                        )}
-                      >
-                        {member.initials}
-                      </motion.span>
-                      <div className="flex-1">
-                        <h3 className="font-display text-2xl text-foreground">
-                          {member.name}
-                        </h3>
-                        <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">
-                          {member.role}
-                        </p>
-                      </div>
-                      <motion.span
-                        animate={{ rotate: open ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="hidden text-2xl text-primary sm:block"
-                      >
-                        {open ? "−" : "+"}
-                      </motion.span>
-                    </div>
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: open ? "auto" : 0,
-                        opacity: open ? 1 : 0,
-                      }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                        {member.bio}
-                      </p>
-                    </motion.div>
-                  </motion.button>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+      <section className="pb-12 sm:pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <FounderSpotlight member={founder} />
 
-          <Reveal delay={0.15}>
-            <div className="mt-12 grid gap-4 sm:grid-cols-3">
+          <Reveal delay={0.1}>
+            <div className="mt-10 flex items-center gap-3">
+              <span className="h-px flex-1 bg-border" aria-hidden />
+              <p className="text-xs font-bold tracking-[0.28em] text-muted-foreground uppercase">
+                Leadership & advisors
+              </p>
+              <span className="h-px flex-1 bg-border" aria-hidden />
+            </div>
+          </Reveal>
+
+          <Stagger className="mt-8 grid gap-5 sm:grid-cols-2">
+            {leadership.map((member) => (
+              <StaggerItem key={member.name}>
+                <TeamCard member={member} compact />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-card/40 py-10 sm:py-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
+            <div className="grid gap-4 sm:grid-cols-3">
               {[
-                { icon: Medal, label: "World-championship medals", sub: "Greece · Spain · Vietnam · Turkey · New Zealand" },
-                { icon: Award, label: "ITTF Level 3 Coach", sub: "India's first & only certified woman coach" },
-                { icon: Globe2, label: "International Umpire", sub: "Officiated at the 2009 Commonwealth Youth Games" },
+                {
+                  icon: Medal,
+                  label: "World-championship medals",
+                  sub: "Greece · Spain · Vietnam · Turkey · New Zealand",
+                },
+                {
+                  icon: Award,
+                  label: "ITTF Level 3 Coach",
+                  sub: "India's first & only certified woman coach",
+                },
+                {
+                  icon: Globe2,
+                  label: "International Umpire",
+                  sub: "2009 Youth Commonwealth Games finals",
+                },
               ].map(({ icon: Icon, label, sub }) => (
                 <div
                   key={label}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-card/50 p-5"
+                  className="flex items-start gap-4 rounded-2xl border border-border bg-background p-5"
                 >
                   <Icon className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
                   <div>
                     <p className="text-sm font-bold text-foreground">{label}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{sub}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                      {sub}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -138,5 +112,93 @@ function Team() {
         </div>
       </section>
     </>
+  );
+}
+
+function FounderSpotlight({ member }: { member: TeamMember }) {
+  const paragraphs = member.bio.split("\n\n");
+
+  return (
+    <Reveal>
+      <article className="overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-card via-background to-secondary/30 shadow-sm">
+        <div className="grid lg:grid-cols-[minmax(0,340px)_1fr]">
+          <div className="relative aspect-[4/5] bg-muted lg:aspect-auto lg:min-h-[420px]">
+            <img
+              src={member.photo}
+              alt={member.name}
+              className="h-full w-full object-cover object-top"
+              width={680}
+              height={840}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-background/20" />
+            <span className="absolute top-4 left-4 rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-primary-foreground uppercase">
+              Founder
+            </span>
+          </div>
+          <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+            <p className="text-xs font-bold tracking-[0.28em] text-primary uppercase">
+              {member.role}
+            </p>
+            <h2 className="font-display mt-2 text-3xl text-foreground sm:text-4xl lg:text-5xl">
+              {member.name}
+            </h2>
+            <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </article>
+    </Reveal>
+  );
+}
+
+function TeamCard({
+  member,
+  compact = false,
+}: {
+  member: TeamMember;
+  compact?: boolean;
+}) {
+  return (
+    <article
+      className={cn(
+        "flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/35",
+        compact ? "sm:flex-row" : "",
+      )}
+    >
+      <div
+        className={cn(
+          "relative shrink-0 overflow-hidden bg-muted",
+          compact ? "aspect-square w-full sm:w-36" : "aspect-[4/5]",
+        )}
+      >
+        <img
+          src={member.photo}
+          alt={member.name}
+          loading="lazy"
+          className="h-full w-full object-cover object-top"
+          width={360}
+          height={360}
+        />
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <p className="text-[10px] font-bold tracking-[0.22em] text-primary uppercase">
+          {member.role}
+        </p>
+        <h3 className="font-display mt-1 text-xl text-foreground">
+          {member.name}
+        </h3>
+        <p
+          className={cn(
+            "mt-3 text-sm leading-relaxed text-muted-foreground",
+            compact ? "line-clamp-6" : "",
+          )}
+        >
+          {member.bio}
+        </p>
+      </div>
+    </article>
   );
 }

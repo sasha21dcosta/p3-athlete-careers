@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * P3 Sports design system — light, professional brand theme.
- * Palette: Navy #0E1621 (text/sections), Orange #FF7A1A (primary),
- * Teal #00B3A4 (accent), on soft grey #F4F7FA surfaces. Font: Poppins.
+ * P3 Sports design system — aligned with official brand logo.
+ * Palette: Black/navy text, coral-red primary (#F26667), soft pink flare (#FFB5B5),
+ * clean white/grey surfaces. Font: Poppins.
  */
 
 @theme inline {
@@ -52,20 +52,20 @@
   --card-foreground: oklch(0.18 0.025 255);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.025 255);
-  --primary: oklch(0.73 0.19 45);
+  --primary: oklch(0.64 0.2 25);
   --primary-foreground: oklch(0.99 0.002 85);
-  --secondary: oklch(0.93 0.012 240);
+  --secondary: oklch(0.95 0.015 25);
   --secondary-foreground: oklch(0.18 0.025 255);
   --muted: oklch(0.94 0.008 240);
   --muted-foreground: oklch(0.5 0.028 255);
-  --accent: oklch(0.67 0.12 185);
-  --accent-foreground: oklch(0.99 0.002 185);
-  --destructive: oklch(0.62 0.22 25);
+  --accent: oklch(0.72 0.14 25);
+  --accent-foreground: oklch(0.99 0.002 85);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.99 0.002 85);
   --border: oklch(0.18 0.025 255 / 10%);
   --input: oklch(0.18 0.025 255 / 14%);
-  --ring: oklch(0.73 0.19 45);
-  --flare: oklch(0.83 0.16 95);
+  --ring: oklch(0.64 0.2 25);
+  --flare: oklch(0.84 0.09 25);
   --navy: oklch(0.19 0.032 255);
   --navy-foreground: oklch(0.97 0.006 240);
 }
@@ -107,6 +107,23 @@
 
   .text-stroke-primary {
     -webkit-text-stroke: 1.5px var(--color-primary);
+    color: transparent;
+  }
+
+  .text-stroke-light {
+    -webkit-text-stroke: 2px color-mix(in oklab, var(--color-navy-foreground) 92%, transparent);
+    color: transparent;
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(
+      135deg,
+      var(--color-flare) 0%,
+      var(--color-primary) 55%,
+      color-mix(in oklab, var(--color-primary) 85%, black) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
   }
 

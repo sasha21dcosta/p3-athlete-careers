@@ -105,44 +105,53 @@ export type TeamMember = {
   role: string;
   initials: string;
   bio: string;
+  photo: string;
+  featured?: boolean;
 };
 
 export const TEAM: TeamMember[] = [
   {
-    name: "Moonmoon Mukerjee",
+    name: "Moonmoon Mukherjee",
     role: "Founder — P3 Sports",
     initials: "MM",
-    bio: "A table tennis player of international repute, Moonmoon is India's first and only woman certified as an ITTF Level 3 coach, and an International Umpire. She has represented Bengal, UP and Indian Railways, officiated the girls' finals at the 2009 Commonwealth Youth Games, and won international and world-championship medals in Greece, Spain, Vietnam, Turkey and New Zealand. Moonmoon individually took up the call to mentor and design the foundations of P3 Sports.",
+    featured: true,
+    photo: "/team/moonmoon.jpg",
+    bio: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India and is a pride for the nation as the only Indian woman to become an ITTF Certified Level 3 Coach. With exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally. Moonmoon took up the call to mentor and design the foundations of P3 Sports; under her guidance the company has grown to commendable levels of recognition, coaching and mentoring sportsmen while organizing corporate and social championships.\n\nAn ITTF Level-3 Coach and International Umpire, she has represented Bengal, UP and Indian Railways, officiated the girls' finals at the 2009 Youth Commonwealth Games, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
   },
   {
     name: "Tushar Kanti Ghosh",
     role: "The Director",
     initials: "TG",
-    bio: "An ace table tennis player who held West Bengal State Ranking No. 8 in 1971 and captained Burdwan and Calcutta University teams. Founder General Secretary of the Chandernagore District Table Tennis Association (1972–1995), Executive Committee member at the 1975 and 1985 World TT Championships, member of the stadium cell at the 3rd SAF Games 1987, and honoured with the Best Organizer Award from the Press Club & Government of West Bengal.",
+    photo: "/team/tushar.jpg",
+    bio: "An ace player of table tennis and a seasoned professional, Mr. Tushar Kanti Ghosh held West Bengal State Ranking No. 8 in 1971. He represented Burdwan and Calcutta University table tennis teams as Captain, served as Under Study table tennis coach for the West Bengal State Council of Sports, and holds the 1st Division Certificate. He presided as Founder General Secretary of Chandernagore District Table Tennis Association from 1972 to 1995, was Executive Committee Member for the stadium cell at the 1975 World TT Championships in Kolkata and for Press & Media during the 1985 World TT Championships in Delhi, and was member of the stadium cell at the 3rd SAF Games 1987. He is a member of West Bengal State Council of Sports and winner of the Best Organizer Award from Press Club & Government of West Bengal.",
   },
   {
-    name: "Venkatesh Srinivasan",
+    name: "Venkatesh Srinivasan (Venky)",
     role: "Sports Associate",
     initials: "VS",
-    bio: "An IIM Bangalore alumnus (Class of 2000), Venky has wide corporate experience across Pepsico, Sasken and more. He was the first employee and GM–Sales at TENVIC, a sports education and management company, leading business development, strategy and content. An avid sports buff and renowned quizmaster, he co-founded Nexus Consulting and Pitch Perfect Consulting, and has been involved in the strategic development of P3 Sports since its conception.",
+    photo: "/team/venky.jpg",
+    bio: "An alumnus of IIM Bangalore (Class of 2000), Venky has wide corporate experience at Pepsico, imagequity+, Sasken, Peek Mobile and ABOVE Solutions. Most recently he was the first employee and GM–Sales at TENVIC, leading business development, strategy and content across multiple verticals. An avid sports buff and quizmaster, he co-founded Nexus Consulting and Pitch Perfect Consulting, and has been actively involved in the strategic development of P3 Sports since its conception.",
   },
   {
     name: "Iza Jameel",
     role: "Brand & Marketing Consultant",
     initials: "IJ",
-    bio: "A brand management and marketing expert with a masters from Texas A&M University and positive-psychology studies at Berkeley. A GM-turned-entrepreneur with tenure at Hilton and Marriott, Iza mentors companies and leaders to showcase their unique abilities, mentored SMEs and startups in scaling their business, and is known in the circles as the Happiness Messenger.",
+    photo: "/team/iza.jpg",
+    bio: "Iza Jameel is a brand management and marketing expert who mentors companies and leaders to showcase their unique abilities. After her masters in brand management from Texas A&M University, she studied positive psychology at Berkeley. With a commendable tenure as GM with Hilton and Marriott, she returned to India to create happy workplaces and charismatic brands, mentoring SMEs and startups in scaling business and brand value. She is known as a Happiness Messenger and speaker par excellence.",
   },
   {
     name: "Dhrumil Dixit",
     role: "Marketing Head",
     initials: "DD",
-    bio: "B.Tech (IT), MBA (Marketing) from NMIMS. Dhrumil has worked as a Sports Analyst at HUDL and brings 5 years of experience in sports marketing to P3's campaigns and community.",
+    photo: "/team/dhrumil.jpg",
+    bio: "B.Tech (IT), MBA (Marketing) — NMIMS. Work experience includes Sports Analyst at HUDL and five years in sports marketing.",
   },
   {
     name: "Ankit Garg",
     role: "Head of Business Development",
     initials: "AG",
-    bio: "B.Sc (IT), M.Sc (IT) with a PG Diploma in Sports Management. Ankit has sporting experience in motorsports with Tata and Volkswagen Motorsports India, and management experience with Decathlon, the Half Run Marathon Mumbai and the National Memory Championship. His toolkit spans marketing, sales, planning and execution.",
+    photo: "/team/ankit.jpg",
+    bio: "B.Sc (IT), M.Sc (IT), PG Diploma in Sports Management. Sporting experience in motorsports with Tata and Volkswagen Motorsports India; management experience with Decathlon, Half Run Marathon Mumbai and National Memory Championship. Skills include marketing, sales, planning, execution, creative and analytical thinking, communication, negotiation, and goal-focused organizational leadership.",
   },
 ];
 
@@ -324,19 +333,120 @@ export const CHALLENGE_FEED: ChallengePost[] = [
   },
 ];
 
-export const UPCOMING_EVENT = {
-  title: "P3 Sports Inter-Corporate Table Tennis Tournament",
-  edition: "7th Edition",
-  categories: [
-    "Corporate Men's Singles",
-    "Corporate Men's Masters 35+",
-    "Mixed Corporate Men's Doubles",
-    "Mix Corporate Team Event",
-  ],
-  prizes: "Winners awarded with cash prizes, trophies and medals",
-  eligibility:
-    "Only corporate / business-owner players are allowed to participate. Schedule is subject to change depending upon entries in team and individual events.",
+export type TournamentEvent = {
+  id: string;
+  title: string;
+  edition?: string;
+  dates: string;
+  venue: string;
+  status: "registration-open" | "coming-soon";
+  categories: string[];
+  prizes: string;
+  eligibility: string;
+  contacts?: string;
+  rules?: string[];
+  featured?: boolean;
 };
+
+export const TOURNAMENT_EVENTS: TournamentEvent[] = [
+  {
+    id: "inter-corporate-7",
+    featured: true,
+    edition: "7th Edition",
+    title: "P3 Sports Inter-Corporate Table Tennis Tournament",
+    dates: "9 & 10 April 2026",
+    venue: "Emerald Club, Chembur, Mumbai",
+    status: "registration-open",
+    categories: [
+      "Mix Corporate Team Event",
+      "Corporate Men's Singles",
+      "Corporate Men's Masters 35+",
+      "Mixed Corporate Men's Doubles",
+    ],
+    prizes: "Cash prizes, trophies and medals for winners",
+    eligibility:
+      "Only corporate / business-owner players may participate. Schedule is subject to change depending on entries in team and individual events.",
+    contacts: "Moonmoon — +91 99679 69506 · Ankit — +91 93210 95460",
+    rules: [
+      "On questions of fact, the umpire's decision is final.",
+      "On interpretation of laws, the chief referee's decision is final.",
+      "Players may take up to 1 minute between successive games.",
+      "Each player or pair may claim one time-out per individual match.",
+      "Towelling breaks apply after every 6 points and at change of ends in the final game.",
+    ],
+  },
+  {
+    id: "powai-open-2026",
+    title: "Powai Open Table Tennis Championship",
+    edition: "2026 Season",
+    dates: "24 & 25 May 2026",
+    venue: "Pawar Public School grounds, Powai, Mumbai",
+    status: "registration-open",
+    categories: [
+      "Open Singles",
+      "Under-18 Singles",
+      "Open Doubles",
+      "Women's Singles",
+    ],
+    prizes: "Trophies, medals and P3 Circle ranking points",
+    eligibility:
+      "Open to academy members and invited community players. Draws published one week before the event.",
+    contacts: "info@p3-sports.com",
+  },
+  {
+    id: "ghosh-memorial",
+    title: "Jatindra Nath Ghosh Memorial Ranking TT Championship",
+    dates: "14 & 15 June 2026",
+    venue: "Khalishani Mahavidyala, Chandannagore, West Bengal",
+    status: "coming-soon",
+    categories: [
+      "Ranking Singles — Open",
+      "Ranking Doubles",
+      "Veterans 40+",
+      "Under-12 Development",
+    ],
+    prizes: "Ranking ladder updates, trophies and certificates",
+    eligibility:
+      "P3 Circle members receive priority seeding. Registration opens 6 weeks before the tournament.",
+    contacts: "moonmoon@p3-sports.com",
+  },
+  {
+    id: "corporate-summer-league",
+    title: "P3 Corporate Summer League",
+    edition: "Pilot League",
+    dates: "July — August 2026 (weekly fixtures)",
+    venue: "Multiple corporate venues, Mumbai",
+    status: "coming-soon",
+    categories: [
+      "Corporate Team League",
+      "Friday Night Doubles",
+      "Captains' Challenge Cup",
+    ],
+    prizes: "League table, medals and end-of-season awards night",
+    eligibility:
+      "Company teams of 4–6 players. Fixtures scheduled with participating HR / sports committees.",
+    contacts: "info@p3-sports.com · moonmoon@p3-sports.com",
+  },
+  {
+    id: "junior-masters",
+    title: "P3 Academy Junior Masters",
+    dates: "6 September 2026",
+    venue: "P3 Sports Academy, Chandivali, Mumbai",
+    status: "coming-soon",
+    categories: [
+      "Under-12",
+      "Under-18",
+      "Academy Doubles",
+      "Coaches' Exhibition Match",
+    ],
+    prizes: "Medals, academy scholarships and guest coaching sessions",
+    eligibility: "For enrolled academy batches and invited partner schools.",
+    contacts: SITE.phonePrimary,
+  },
+];
+
+/** Primary featured event (home page hero card) */
+export const UPCOMING_EVENT = TOURNAMENT_EVENTS.find((e) => e.featured)!;
 
 export const PAST_TOURNAMENTS = [
   {
@@ -358,10 +468,26 @@ export const PAST_TOURNAMENTS = [
 ];
 
 export const PLAYER_SPOTLIGHT = [
-  { name: "Mrinalini Singh", group: "Under 12" },
-  { name: "Soham Sinha", group: "Under 18" },
-  { name: "Rajdeep Singha", group: "Under 18" },
-  { name: "Gauri Deshmukh", group: "Under 40" },
+  {
+    name: "Mrinalini Singh",
+    group: "Under 12",
+    photo: "/academy-players/1.png",
+  },
+  {
+    name: "Soham Sinha",
+    group: "Under 18",
+    photo: "/academy-players/2.png",
+  },
+  {
+    name: "Rajdeep Singha",
+    group: "Under 18",
+    photo: "/academy-players/3.png",
+  },
+  {
+    name: "Gauri Deshmukh",
+    group: "Under 40",
+    photo: "/academy-players/4.png",
+  },
 ];
 
 export const CLIENT_SECTORS = [
@@ -431,4 +557,17 @@ export const CAREER_PERKS = [
   "Stage events that reach 1,000+ players across the country",
   "Learn event management, coaching science and sports business on the job",
   "A young, passionate team that plays as hard as it works",
+];
+
+/** Official sponsor logos from p3-sports.com home page */
+export const SPONSORS = [
+  { logo: "/sponsors/official-1.jpg", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-2.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-3.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-4.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-5.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-6.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-7.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-8.png", alt: "P3 Sports sponsor" },
+  { logo: "/sponsors/official-9.png", alt: "P3 Sports sponsor" },
 ];

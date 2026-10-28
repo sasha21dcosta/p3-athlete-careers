@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import p3Logo from "@/assets/p3-logo.png";
 import { SITE } from "@/data/content";
 import { cn } from "@/lib/utils";
 
@@ -18,47 +19,28 @@ const LINKS = [
 
 export function P3Mark({ className }: { className?: string }) {
   return (
-    <span
-      className={cn(
-        "font-display inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-2xl leading-none text-primary-foreground",
-        className,
-      )}
-    >
-      P3
-    </span>
+    <img
+      src={p3Logo}
+      alt="P3 Sports Management Company"
+      className={cn("h-11 w-auto object-contain", className)}
+      width={120}
+      height={44}
+    />
   );
 }
 
 export function Nav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-border bg-background/85 backdrop-blur-xl"
-          : "bg-transparent",
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-white/88 shadow-sm backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <P3Mark />
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-xl tracking-wide text-foreground">
-              P3 SPORTS
-            </span>
+        <Link to="/" className="flex items-center gap-2 sm:gap-3">
+          <P3Mark className="h-9 sm:h-11" />
+          <span className="hidden flex-col leading-none sm:flex">
             <span className="text-[10px] font-semibold tracking-[0.28em] text-muted-foreground uppercase">
               Play · Practice · Persevere
             </span>
