@@ -17,6 +17,7 @@ import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ShepaddleRouteImport } from './routes/shepaddle'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TournamentsRouteImport } from './routes/tournaments'
 
@@ -60,6 +61,11 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShepaddleRoute = ShepaddleRouteImport.update({
+  id: '/shepaddle',
+  path: '/shepaddle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/shepaddle': typeof ShepaddleRoute
   '/team': typeof TeamRoute
   '/tournaments': typeof TournamentsRoute
 }
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/shepaddle': typeof ShepaddleRoute
   '/team': typeof TeamRoute
   '/tournaments': typeof TournamentsRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
+  '/shepaddle': typeof ShepaddleRoute
   '/team': typeof TeamRoute
   '/tournaments': typeof TournamentsRoute
 }
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/services'
+    | '/shepaddle'
     | '/team'
     | '/tournaments'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/services'
+    | '/shepaddle'
     | '/team'
     | '/tournaments'
   id:
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/services'
+    | '/shepaddle'
     | '/team'
     | '/tournaments'
   fileRoutesById: FileRoutesById
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   ServicesRoute: typeof ServicesRoute
+  ShepaddleRoute: typeof ShepaddleRoute
   TeamRoute: typeof TeamRoute
   TournamentsRoute: typeof TournamentsRoute
 }
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shepaddle': {
+      id: '/shepaddle'
+      path: '/shepaddle'
+      fullPath: '/shepaddle'
+      preLoaderRoute: typeof ShepaddleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   ServicesRoute: ServicesRoute,
+  ShepaddleRoute: ShepaddleRoute,
   TeamRoute: TeamRoute,
   TournamentsRoute: TournamentsRoute,
 }

@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import p3Logo from "@/assets/p3-logo.png";
 import { SITE } from "@/data/content";
 import { cn } from "@/lib/utils";
 
-const LINKS = [
+export type NavLinkItem = {
+  to: string;
+  label: string;
+  badge?: string;
+  hash?: string;
+};
+
+export const NAV_LINKS: NavLinkItem[] = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
   { to: "/services", label: "Our Services" },
+  { to: "/", label: "ShePaddle", badge: "New", hash: "shepaddle" },
   { to: "/tournaments", label: "Tournaments" },
   { to: "/gallery", label: "Gallery" },
   { to: "/clients", label: "Our Clients" },
-  { to: "/careers", label: "Careers" },
-  { to: "/contact", label: "Contact" },
 ];
 
 export function P3Mark({ className }: { className?: string }) {
@@ -22,7 +28,7 @@ export function P3Mark({ className }: { className?: string }) {
     <img
       src={p3Logo}
       alt="P3 Sports Management Company"
-      className={cn("h-11 w-auto object-contain", className)}
+      className={cn("h-10 w-auto object-contain sm:h-11", className)}
       width={120}
       height={44}
     />
@@ -31,56 +37,96 @@ export function P3Mark({ className }: { className?: string }) {
 
 export function Nav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const hash = useRouterState({ select: (s) => s.location.hash });
   const [open, setOpen] = useState(false);
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, hash]);
+
+  const isActive = (l: NavLinkItem) => {
+    if (l.hash) {
+      const h = hash?.replace(/^#/, "") ?? "";
+      if (l.hash === "shepaddle") {
+        return (pathname === "/" && h === l.hash) || pathname.startsWith("/shepaddle");
+      }
+      return pathname === l.to && h === l.hash;
+    }
+    if (l.to === "/") {
+      const h = hash?.replace(/^#/, "") ?? "";
+      return pathname === "/" && !h;
+    }
+    return pathname.startsWith(l.to);
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-white/88 shadow-sm backdrop-blur-xl">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-2 sm:gap-3">
-          <P3Mark className="h-9 sm:h-11" />
-          <span className="hidden flex-col leading-none sm:flex">
-            <span className="text-[10px] font-semibold tracking-[0.28em] text-muted-foreground uppercase">
-              Play · Practice · Persevere
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0b121c]">
+      <nav className="flex h-14 w-full items-stretch overflow-hidden sm:h-[3.75rem]">
+        {/* Logo panel — slanted edge + red accent */}
+        <Link
+          to="/"
+          className="relative flex min-w-0 shrink-0 items-center gap-2 bg-[#eef0f3] pl-3 pr-6 sm:gap-3 sm:pl-4 sm:pr-10"
+          style={{
+            clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)",
+          }}
+        >
+          <span
+            aria-hidden
+            className="absolute top-0 right-[18px] bottom-0 w-[3px] bg-primary sm:right-[20px]"
+          />
+          <P3Mark className="h-8 sm:h-9" />
+          <span className="hidden min-w-0 flex-col leading-tight sm:flex">
+            <span className="font-display text-sm tracking-wide text-[#111] sm:text-base">
+              P3 SPORTS
+            </span>
+            <span className="text-[9px] font-semibold tracking-[0.22em] text-[#444] uppercase">
+              Management Company
             </span>
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
-          {LINKS.map((l) => (
+        <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 px-2 lg:flex xl:gap-2 xl:px-6">
+          {NAV_LINKS.map((l) => (
             <Link
-              key={l.to}
+              key={`${l.to}-${l.label}`}
               to={l.to}
+              hash={l.hash}
               className={cn(
-                "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                pathname === l.to
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground",
+                "relative px-3 py-2 text-[13px] font-medium text-white/85 transition-colors hover:text-white xl:px-3.5 xl:text-sm",
+                isActive(l) && "font-bold text-white",
               )}
             >
-              {l.label}
-              {pathname === l.to && (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 -z-10 rounded-full border border-primary/40 bg-primary/10"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
+              <span className="inline-flex items-center gap-1.5">
+                {l.label}
+                {l.badge ? (
+                  <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-primary-foreground uppercase">
+                    {l.badge}
+                  </span>
+                ) : null}
+              </span>
+              {isActive(l) && (
+                <span className="absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full bg-primary" />
               )}
             </Link>
           ))}
+        </div>
+
+        <div className="hidden items-stretch lg:flex">
+          <span
+            aria-hidden
+            className="my-3 w-px bg-white/15"
+          />
           <Link
             to="/contact"
-            className="ml-3 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+            className="inline-flex h-full shrink-0 items-center bg-primary px-6 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90 xl:px-8"
           >
-            <Phone className="h-4 w-4" /> Join P3
+            Contact
           </Link>
         </div>
 
         <button
+          type="button"
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground lg:hidden"
+          className="ml-auto inline-flex w-14 items-center justify-center text-white lg:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -89,27 +135,38 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-xl lg:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="overflow-hidden border-t border-white/10 bg-[#0f1724] lg:hidden"
           >
-            <div className="flex flex-col gap-1 px-4 py-4">
-              {LINKS.map((l) => (
+            <div className="flex flex-col gap-0.5 p-3">
+              {NAV_LINKS.map((l) => (
                 <Link
-                  key={l.to}
+                  key={`${l.to}-${l.label}-mobile`}
                   to={l.to}
+                  hash={l.hash}
                   className={cn(
-                    "rounded-lg px-4 py-3 text-base font-semibold",
-                    pathname === l.to
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground",
+                    "rounded-lg px-4 py-3 text-sm font-semibold text-white/90",
+                    isActive(l) && "bg-white/5 text-white",
                   )}
                 >
-                  {l.label}
+                  <span className="inline-flex items-center gap-2">
+                    {l.label}
+                    {l.badge ? (
+                      <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold text-primary-foreground uppercase">
+                        {l.badge}
+                      </span>
+                    ) : null}
+                  </span>
                 </Link>
               ))}
+              <Link
+                to="/contact"
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-bold text-primary-foreground"
+              >
+                Contact
+              </Link>
             </div>
           </motion.div>
         )}
@@ -120,9 +177,15 @@ export function Nav() {
 
 export function Footer() {
   const explore = [
-    ...LINKS,
+    ...NAV_LINKS.map((l) => ({
+      to: l.to,
+      label: l.label,
+      hash: l.hash,
+    })),
     { to: "/team", label: "Our Team" },
-    { to: "/circle", label: "P3 Circle" },
+    /* { to: "/circle", label: "P3 Circle" }, */
+    { to: "/careers", label: "Careers" },
+    { to: "/contact", label: "Contact" },
   ];
   return (
     <footer className="relative overflow-hidden bg-navy text-navy-foreground">
@@ -162,8 +225,12 @@ export function Footer() {
           <h4 className="font-display text-lg text-navy-foreground">Explore</h4>
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/70">
             {explore.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="transition-colors hover:text-primary">
+              <li key={`${l.to}-${l.label}`}>
+                <Link
+                  to={l.to}
+                  hash={l.hash}
+                  className="transition-colors hover:text-primary"
+                >
                   {l.label}
                 </Link>
               </li>

@@ -38,14 +38,16 @@ const FILTERS: Array<GalleryCategory | "All"> = [
   "Academy",
   "Tournaments",
   "Corporate",
-  "Community",
+  /* "Community", */
   "Media",
 ];
 
 function Gallery() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const shown = GALLERY_ARCHIVE.filter(
-    (p) => filter === "All" || p.category === filter,
+    (p) =>
+      p.category !== "Community" &&
+      (filter === "All" || p.category === filter),
   );
 
   return (

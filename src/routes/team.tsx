@@ -1,5 +1,3 @@
-import { Medal, Globe2, Award } from "lucide-react";
-
 import {
   PageHero,
   Reveal,
@@ -54,7 +52,7 @@ function Team() {
           <FounderSpotlight member={founder} />
 
           <Reveal delay={0.1}>
-            <div className="mt-10 flex items-center gap-3">
+            <div className="mt-12 flex items-center gap-3 sm:mt-14">
               <span className="h-px flex-1 bg-border" aria-hidden />
               <p className="text-xs font-bold tracking-[0.28em] text-muted-foreground uppercase">
                 Leadership & advisors
@@ -72,45 +70,6 @@ function Team() {
           </Stagger>
         </div>
       </section>
-
-      <section className="border-t border-border bg-card/40 py-10 sm:py-12">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Reveal>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[
-                {
-                  icon: Medal,
-                  label: "World-championship medals",
-                  sub: "Greece · Spain · Vietnam · Turkey · New Zealand",
-                },
-                {
-                  icon: Award,
-                  label: "ITTF Level 3 Coach",
-                  sub: "India's first & only certified woman coach",
-                },
-                {
-                  icon: Globe2,
-                  label: "International Umpire",
-                  sub: "2009 Youth Commonwealth Games finals",
-                },
-              ].map(({ icon: Icon, label, sub }) => (
-                <div
-                  key={label}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-background p-5"
-                >
-                  <Icon className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-bold text-foreground">{label}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {sub}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </>
   );
 }
@@ -120,29 +79,45 @@ function FounderSpotlight({ member }: { member: TeamMember }) {
 
   return (
     <Reveal>
-      <article className="overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-card via-background to-secondary/30 shadow-sm">
-        <div className="grid lg:grid-cols-[minmax(0,340px)_1fr]">
-          <div className="relative aspect-[4/5] bg-muted lg:aspect-auto lg:min-h-[420px]">
-            <img
-              src={member.photo}
-              alt={member.name}
-              className="h-full w-full object-cover object-top"
-              width={680}
-              height={840}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-background/20" />
-            <span className="absolute top-4 left-4 rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-primary-foreground uppercase">
-              Founder
-            </span>
+      <article className="relative overflow-hidden rounded-3xl border-2 border-primary/35 bg-gradient-to-br from-secondary/50 via-card to-flare/25 shadow-[0_12px_40px_rgba(242,102,103,0.12)] ring-1 ring-primary/10">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-20 -right-20 h-56 w-56 rounded-full bg-primary/10 blur-3xl"
+        />
+        <div className="grid lg:grid-cols-[minmax(0,360px)_1fr]">
+          <div className="relative border-b border-primary/15 p-6 sm:p-8 lg:border-r lg:border-b-0">
+            <div className="relative mx-auto max-w-sm pl-2 pt-2 lg:max-w-none">
+              <div
+                aria-hidden
+                className="absolute top-0 left-0 h-[calc(100%-8px)] w-[calc(100%-8px)] rounded-2xl border-2 border-primary"
+              />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted lg:min-h-[440px] lg:aspect-auto">
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="h-full w-full object-cover object-top"
+                  width={680}
+                  height={840}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/55 via-transparent to-transparent" />
+                <span className="absolute top-4 left-4 rounded-full bg-primary px-3.5 py-1.5 text-[10px] font-bold tracking-[0.22em] text-primary-foreground uppercase shadow-md">
+                  Founder
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+          <div className="relative flex flex-col justify-center p-6 sm:p-8 lg:p-10 xl:p-12">
+            <span className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Meet our founder
+            </span>
             <p className="text-xs font-bold tracking-[0.28em] text-primary uppercase">
               {member.role}
             </p>
-            <h2 className="font-display mt-2 text-3xl text-foreground sm:text-4xl lg:text-5xl">
+            <h2 className="font-display mt-2 text-3xl text-navy sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
               {member.name}
             </h2>
-            <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <div className="mt-6 space-y-4 border-l-[3px] border-primary/40 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
               {paragraphs.map((p) => (
                 <p key={p.slice(0, 24)}>{p}</p>
               ))}

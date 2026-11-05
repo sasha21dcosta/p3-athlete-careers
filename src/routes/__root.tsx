@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "P3 Sports Management Company — academy coaching, corporate tournaments and the P3 Circle community. Your connect to the athlete within YOU.",
+          "P3 Sports Management Company — academy coaching and corporate tournaments. Your connect to the athlete within YOU.",
       },
       { name: "author", content: "P3 Sports Management Company" },
       { property: "og:title", content: "P3 Sports — Play · Practice · Persevere" },

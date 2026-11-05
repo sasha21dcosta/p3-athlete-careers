@@ -63,10 +63,12 @@ export const SERVICES = [
     title: "Sports Travel & Tours",
     desc: "Training camps and exposure tours, including international summer camps.",
   },
+  /* P3 Circle — disabled sitewide
   {
     title: "P3 Circle Community",
     desc: "An online ranking community where members challenge each other and climb the ladder.",
   },
+  */
   {
     title: "Team Mentoring & Management",
     desc: "Consultancy, staging assistance and full tournament management packages.",
@@ -76,6 +78,161 @@ export const SERVICES = [
     desc: "Grassroot training and mentoring to make sport accessible to every child.",
   },
 ];
+
+/** Services shown on site (excludes commented-out P3 Circle) */
+export const SERVICES_PUBLIC = SERVICES.filter(
+  (s) => s.title !== "P3 Circle Community",
+);
+
+export type ServiceDetail = {
+  id: string;
+  index: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  waysWeHelp: string[];
+  note: string;
+  image: string;
+  imageBadge?: string;
+};
+
+/** Detail sections for /services — one per home card (same titles as SERVICES_PUBLIC) */
+export const SERVICE_DETAILS: ServiceDetail[] = [
+  {
+    id: "p3-sports-academy",
+    index: "01",
+    eyebrow: "Academy coaching",
+    title: "P3 Sports Academy",
+    summary:
+      "Pan-India coaching programmes for juniors, adults and pros — from first serve to tournament play.",
+    waysWeHelp: [
+      "Structured coaching batches for juniors, adults and advanced players",
+      "Skill development from fundamentals to match play",
+      "Tournament preparation and competitive exposure",
+      "Batch schedules aligned to school and work calendars",
+      "Progress tracking with certified coaching staff",
+      "Pathways from beginner sessions to championship entry",
+    ],
+    note: "Programmes and batch timings vary by location. Contact P3 to confirm availability at your nearest academy ground.",
+    image: "/services/01-academy.jpg",
+  },
+  {
+    id: "certified-coaches",
+    index: "02",
+    eyebrow: "Expert guidance",
+    title: "Certified & Licensed Coaches",
+    summary:
+      "ITTF-certified mentors and national-level players designing every training block.",
+    waysWeHelp: [
+      "ITTF-certified and licensed coaching professionals",
+      "Training plans tailored to age, skill and goals",
+      "Technical correction, footwork and match strategy",
+      "Mentoring for players stepping into competitive sport",
+      "Coach allocation for schools, corporates and academies",
+      "Quality standards aligned with P3 Sports methodology",
+    ],
+    note: "Coach assignment depends on discipline, venue and schedule. P3 will match the right mentor to your programme.",
+    image: "/services/02-coaches.jpg",
+  },
+  {
+    id: "tournaments-championships",
+    index: "03",
+    eyebrow: "On the table",
+    title: "Tournaments & Championships",
+    summary:
+      "End-to-end staging of corporate, inter-school and state-level championships.",
+    waysWeHelp: [
+      "Tournament design, draws and fixture management",
+      "Registration, seeding and scheduling",
+      "Venue setup, tables, equipment and logistics",
+      "Umpiring, scoring and on-ground operations",
+      "Awards, trophies and closing ceremonies",
+      "Corporate, inter-school and open championship formats",
+    ],
+    note: "Scope, dates and formats are confirmed per event. Share your calendar and entry expectations when you enquire.",
+    image: "/services/03-tournaments.jpg",
+  },
+  {
+    id: "corporate-sports-events",
+    index: "04",
+    eyebrow: "Workplace connection",
+    title: "Corporate Sports Events",
+    summary:
+      "Signature inter-corporate tournaments that build teams and reignite workplace energy.",
+    waysWeHelp: [
+      "Inter-corporate leagues and one-day tournaments",
+      "Team-building activities and indoor games",
+      "Interdepartmental and intercompany competitions",
+      "Employee wellness and engagement events",
+      "Planning, registrations, fixtures and scoring",
+      "Venue coordination and on-ground event management",
+    ],
+    note: "Corporate packages are tailored to company size and goals. P3 will confirm scope, venues and timelines with your team.",
+    image: "/services/04-corporate.jpg",
+  },
+  {
+    id: "sports-travel-tours",
+    index: "05",
+    eyebrow: "Beyond the ground",
+    title: "Sports Travel & Tours",
+    summary:
+      "Training camps and exposure tours, including international summer camps.",
+    waysWeHelp: [
+      "Domestic and international training camps",
+      "Exposure tours with high-performance coaching",
+      "International summer camp programmes",
+      "Travel, stay and training itinerary planning",
+      "Group and academy tour coordination",
+      "Skill intensives combined with competitive experience",
+    ],
+    note: "Tour dates, destinations and eligibility vary by season. Enquire for current camp and travel options.",
+    image: "/services/05-travel.jpg",
+    imageBadge: "International sports camps",
+  },
+  {
+    id: "team-mentoring-management",
+    index: "06",
+    eyebrow: "End-to-end support",
+    title: "Team Mentoring & Management",
+    summary:
+      "Consultancy, staging assistance and full tournament management packages.",
+    waysWeHelp: [
+      "Sports consultancy and programme advisory",
+      "Staging assistance for events and championships",
+      "Full tournament and league management",
+      "Team mentoring and performance planning",
+      "Vendor, venue and operations coordination",
+      "Custom packages for institutions and associations",
+    ],
+    note: "Management scope is defined with each client. Discuss your requirements so P3 can propose the right support model.",
+    image: "/services/06-mentoring.jpg",
+  },
+  {
+    id: "coaching-under-privileged",
+    index: "07",
+    eyebrow: "Grassroots impact",
+    title: "Coaching for Under-privileged",
+    summary:
+      "Grassroot training and mentoring to make sport accessible to every child.",
+    waysWeHelp: [
+      "Grassroots coaching for young learners",
+      "Structured practice for beginners and intermediates",
+      "Mentoring and talent identification",
+      "School and community outreach programmes",
+      "Equipment and session support where applicable",
+      "Pathways toward competitive and academy participation",
+    ],
+    note: "Outreach programmes depend on partnerships and locations. Contact P3 to explore current grassroots initiatives.",
+    image: "/services/07-grassroots.jpg",
+  },
+];
+
+export const SERVICES_ADDITIONAL_SUPPORT = {
+  eyebrow: "Additional support",
+  title: "Need something more specific?",
+  body: "P3 also provides sports consultancy, staging assistance, team mentoring and tournament management beyond the programmes listed above. Discuss your requirements so we can confirm the right support for you.",
+  cta: "Discuss your project",
+};
 
 export const IDEA_BEHIND = [
   {
@@ -92,6 +249,33 @@ export const IDEA_BEHIND = [
   },
 ];
 
+/** Home page “About P3 Sports” teaser */
+export const ABOUT_P3_HOME = {
+  paragraphs: [
+    "P3 Sports Management Company is dedicated to building a healthier, more active and inclusive sporting culture. From grassroots coaching and advanced-level training in schools to corporate sporting events and sports programmes in residential societies and clubhouses, we create opportunities for people of all ages and abilities to discover their sporting potential.",
+    "With a special focus on women's empowerment and Masters Sports, P3 Sports encourages women and adults to embrace fitness, stay active and continue competing at every stage of life. By promoting lifelong participation in sports, we proudly align with the vision of the Fit India Movement to inspire a healthier, fitter and happier nation.",
+    "Through professional coaching, community initiatives and inclusive sporting events, we aim to make sports an integral part of everyday life.",
+  ],
+  focusAreas: [
+    {
+      title: "Women's empowerment",
+      desc: "Spaces for women to train, compete and celebrate their sporting stories.",
+    },
+    {
+      title: "Masters sports",
+      desc: "Age-category events that honour lifelong participation.",
+    },
+  ],
+  fitIndia:
+    "Aligned with the Fit India Movement to inspire a healthier, fitter and happier nation.",
+};
+
+export const SPONSORSHIP_CTA = {
+  title: "Be part of the next sporting story.",
+  subtitle: "Talk to P3 about supporting a programme or event.",
+  cta: "Discuss sponsorship",
+};
+
 export const ABOUT_STORY = `P3 is born out of passion — passion for sports, passion for fitness, and a passion to create a happy and healthy difference in society. P3 Sports was conceptualized with an aim to create a common platform for professionals wishing to rekindle their passion for sports, amateurs searching for quality training, and masters willing to share their expertise and knowledge.
 
 P3 Sports Management is a pioneering sports organization founded by a set of like-minded individuals aiming to bring mainstream sport to public consciousness, with a specific focus on Olympic and non-Olympic games. The founders have been conducting sports championships and coaching for several years in and around Mumbai and California, US. P3 has staged 21 table tennis tournaments, handled 1000-plus players and managed more than 50 matches.
@@ -99,6 +283,69 @@ P3 Sports Management is a pioneering sports organization founded by a set of lik
 With reputed sports experts and industry professionals on its Board of Directors and advisors, P3 conducts corporate, inter-school and state-level championships along with grassroot training and mentoring for sports enthusiasts and under-privileged children — aiming to be India's topmost change-maker in the field of sports.`;
 
 export const FOUNDER_NOTE = `At P3 Sports we are committed to establishing the best learning ground, creating corporate sports events, providing amateur trainings, and coaching professional players — tailored to meet every individual's need, bring out their athletic ability and initiate a positive change in their overall well-being. In-keeping with the P3 Sports way, our coaches and events team is dedicated to delivering success, quality & satisfaction at all our seamlessly managed events & training grounds.`;
+
+export type FounderChapter = {
+  id: string;
+  label: string;
+  headline: string;
+  body: string;
+};
+
+/** Home-page founder spotlight — sourced from p3-sports.com team page + internal bios */
+export const FOUNDER_TAGLINE =
+  "A player, coach and mentor with a lifelong commitment to sport and developing the next generation of athletes.";
+
+export const FOUNDER_PULL_QUOTE =
+  "A passionate player who has served table tennis all her life — performing, mentoring and encouraging the game — and a woman recognized on international forums.";
+
+export const FOUNDER_JOURNEY =
+  "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India — the nation's only woman ITTF Certified Level-3 Coach and an International Umpire. She has represented Bengal, UP and Indian Railways, officiated the girls' finals at the 2009 Youth Commonwealth Games, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand. She founded and shaped P3 Sports, where coaching, mentoring and corporate and community events continue under her guidance.";
+
+/** Home founder block + brand vision (aligned with official P3 messaging) */
+export const P3_VISION = {
+  title: "The P3 Vision",
+  statement:
+    "We are committed to the best learning grounds in sport — amateur training, professional coaching and corporate events tailored to every individual — to bring out athletic ability and positive change in overall well-being.",
+  commitment:
+    "Our coaches and events team deliver success, quality and satisfaction at every seamlessly managed training ground and championship.",
+  motto: SITE.tagline,
+  pillars: [
+    { word: "Play", desc: "Ignite passion and joy in the game" },
+    { word: "Practice", desc: "Master skills with ITTF-certified guidance" },
+    { word: "Persevere", desc: "Compete, grow and keep coming back" },
+  ],
+} as const;
+
+/** @deprecated use P3_VISION.statement */
+export const FOUNDER_VISION_BLURB = P3_VISION.statement;
+
+export const FOUNDER_CHAPTERS: FounderChapter[] = [
+  {
+    id: "player",
+    label: "The competitor",
+    headline: "Fighting alongside the idols she grew up admiring",
+    body: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India. Endowed with exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally — representing Bengal, Uttar Pradesh and Indian Railways, and proving herself as an ace player on the world stage.",
+  },
+  {
+    id: "coach",
+    label: "The coach & umpire",
+    headline: "India's first — and only — woman ITTF Level 3 Coach",
+    body: "She is the only Indian woman to earn ITTF Certified Level 3 Coach status — a pride for the nation. An International Umpire as well, she officiated the girls' final matches at the 2009 Youth Commonwealth Games. Recent achievements include international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
+  },
+  {
+    id: "founder",
+    label: "Building P3",
+    headline: "She designed the foundations of P3 Sports",
+    body: "Moonmoon individually took up the call to mentor and shape P3 Sports. Under her able and dynamic guidance the company has grown to commendable levels of recognition — coaching and mentoring sportsmen every day while successfully organizing corporate and social championships across Mumbai, Chandannagore and beyond.",
+  },
+];
+
+export const FOUNDER_HIGHLIGHTS = [
+  { value: "L3", label: "ITTF Level-3 Coach" },
+  { value: "2009", label: "Youth Commonwealth Games" },
+  { value: "5+", label: "World medals" },
+  { value: "3", label: "Represented Bengal • UP • Indian Railways" },
+] as const;
 
 export type TeamMember = {
   name: string;
@@ -126,34 +373,19 @@ export const TEAM: TeamMember[] = [
     bio: "An ace player of table tennis and a seasoned professional, Mr. Tushar Kanti Ghosh held West Bengal State Ranking No. 8 in 1971. He represented Burdwan and Calcutta University table tennis teams as Captain, served as Under Study table tennis coach for the West Bengal State Council of Sports, and holds the 1st Division Certificate. He presided as Founder General Secretary of Chandernagore District Table Tennis Association from 1972 to 1995, was Executive Committee Member for the stadium cell at the 1975 World TT Championships in Kolkata and for Press & Media during the 1985 World TT Championships in Delhi, and was member of the stadium cell at the 3rd SAF Games 1987. He is a member of West Bengal State Council of Sports and winner of the Best Organizer Award from Press Club & Government of West Bengal.",
   },
   {
-    name: "Venkatesh Srinivasan (Venky)",
-    role: "Sports Associate",
-    initials: "VS",
-    photo: "/team/venky.jpg",
-    bio: "An alumnus of IIM Bangalore (Class of 2000), Venky has wide corporate experience at Pepsico, imagequity+, Sasken, Peek Mobile and ABOVE Solutions. Most recently he was the first employee and GM–Sales at TENVIC, leading business development, strategy and content across multiple verticals. An avid sports buff and quizmaster, he co-founded Nexus Consulting and Pitch Perfect Consulting, and has been actively involved in the strategic development of P3 Sports since its conception.",
-  },
-  {
-    name: "Iza Jameel",
-    role: "Brand & Marketing Consultant",
-    initials: "IJ",
-    photo: "/team/iza.jpg",
-    bio: "Iza Jameel is a brand management and marketing expert who mentors companies and leaders to showcase their unique abilities. After her masters in brand management from Texas A&M University, she studied positive psychology at Berkeley. With a commendable tenure as GM with Hilton and Marriott, she returned to India to create happy workplaces and charismatic brands, mentoring SMEs and startups in scaling business and brand value. She is known as a Happiness Messenger and speaker par excellence.",
-  },
-  {
     name: "Dhrumil Dixit",
     role: "Marketing Head",
     initials: "DD",
     photo: "/team/dhrumil.jpg",
     bio: "B.Tech (IT), MBA (Marketing) — NMIMS. Work experience includes Sports Analyst at HUDL and five years in sports marketing.",
   },
-  {
-    name: "Ankit Garg",
-    role: "Head of Business Development",
-    initials: "AG",
-    photo: "/team/ankit.jpg",
-    bio: "B.Sc (IT), M.Sc (IT), PG Diploma in Sports Management. Sporting experience in motorsports with Tata and Volkswagen Motorsports India; management experience with Decathlon, Half Run Marathon Mumbai and National Memory Championship. Skills include marketing, sales, planning, execution, creative and analytical thinking, communication, negotiation, and goal-focused organizational leadership.",
-  },
 ];
+
+export function getFounderMember(): TeamMember {
+  const founder = TEAM.find((m) => m.featured);
+  if (!founder) throw new Error("Founder not found in TEAM");
+  return founder;
+}
 
 export type Batch = {
   name: string;
@@ -203,6 +435,7 @@ export type CircleGroup = {
   players: { rank: number; name: string }[];
 };
 
+/* P3 Circle — disabled sitewide
 export const CIRCLE_GROUPS: CircleGroup[] = [
   {
     category: "Under 12",
@@ -277,20 +510,17 @@ export const CIRCLE_GROUPS: CircleGroup[] = [
     ],
   },
 ];
+*/
 
+export const CIRCLE_GROUPS: CircleGroup[] = [];
+
+/* P3 Circle rules — disabled sitewide (see git history)
 export const CIRCLE_RULES = [
-  "All table tennis lovers can enrol in the P3 Circle. Group categories: Under-12, Under-18, Above-18 and Above-40.",
-  "Present seeding is based on the last two years' results of the Powai Open Table Tennis Tournament.",
-  "Members can challenge each other to upgrade their ranking — you can only challenge up to 2 seeds ahead of you. The No. 5 seed can challenge No. 4 or No. 3, but not No. 1.",
-  "Challenges can be placed openly by clicking a player's name with the specified dates.",
-  "P3 Sports suggests the time and venue of the challenge and informs both players within 24 hours by email or through the website. Dates, venue or time may change based on availability.",
-  "Matches are played in best-of-five format. Players are responsible for communicating results to P3 Sports by email or phone. A P3 representative is always present for Under-12 challenges.",
-  "Seeding is updated based on challenge results by P3 Sports Management Co.",
-  "New members can join by registering on the website or by emailing a request.",
-  "Membership fee is ₹500. Registration validity runs March to February every year.",
-  "Top-seeded members get an opportunity to participate in the Summer Camp at the ICC Centre, California under world-class coaches at a discounted rate.",
-  "Top 3 members are awarded a P3 Sports-sponsored tracksuit and T-shirt.",
+  "All table tennis lovers can enrol in the P3 Circle. ...",
 ];
+*/
+
+export const CIRCLE_RULES: string[] = [];
 
 export type ChallengePost = {
   title: string;
@@ -298,6 +528,7 @@ export type ChallengePost = {
   date: string;
 };
 
+/* P3 Circle challenge feed — disabled sitewide
 export const CHALLENGE_FEED: ChallengePost[] = [
   {
     title: "With my left hand though I'm a righty",
@@ -332,6 +563,9 @@ export const CHALLENGE_FEED: ChallengePost[] = [
     date: "16 Feb 2014",
   },
 ];
+*/
+
+export const CHALLENGE_FEED: ChallengePost[] = [];
 
 export type TournamentEvent = {
   id: string;
@@ -388,9 +622,9 @@ export const TOURNAMENT_EVENTS: TournamentEvent[] = [
       "Open Doubles",
       "Women's Singles",
     ],
-    prizes: "Trophies, medals and P3 Circle ranking points",
+    prizes: "Trophies, medals and ranking points",
     eligibility:
-      "Open to academy members and invited community players. Draws published one week before the event.",
+      "Open to academy members and invited players. Draws published one week before the event.",
     contacts: "info@p3-sports.com",
   },
   {
@@ -407,7 +641,7 @@ export const TOURNAMENT_EVENTS: TournamentEvent[] = [
     ],
     prizes: "Ranking ladder updates, trophies and certificates",
     eligibility:
-      "P3 Circle members receive priority seeding. Registration opens 6 weeks before the tournament.",
+      "Academy members receive priority seeding. Registration opens 6 weeks before the tournament.",
     contacts: "moonmoon@p3-sports.com",
   },
   {
@@ -451,7 +685,7 @@ export const UPCOMING_EVENT = TOURNAMENT_EVENTS.find((e) => e.featured)!;
 export const PAST_TOURNAMENTS = [
   {
     name: "Powai Open Table Tennis Tournament",
-    desc: "The flagship community championship that seeds the P3 Circle rankings, held in Powai, Mumbai.",
+    desc: "The flagship open championship held in Powai, Mumbai.",
   },
   {
     name: "Inter-Corporate TT Tournaments",
@@ -463,7 +697,7 @@ export const PAST_TOURNAMENTS = [
   },
   {
     name: "International Summer Camp",
-    desc: "Annual training exposure at the ICC Centre, California with world-class coaches for top P3 Circle performers.",
+    desc: "Annual training exposure at the ICC Centre, California with world-class coaches for top academy performers.",
   },
 ];
 
@@ -504,7 +738,12 @@ export const CLIENT_SECTORS = [
   {
     title: "Residential Clubs & Societies",
     desc: "Clubhouse coaching and community programmes for residential societies that keep every age group active.",
-    points: ["Clubhouse coaching programmes", "Community rankings & leagues", "Holiday sports camps", "Senior citizen fitness batches"],
+    points: [
+      "Clubhouse coaching programmes",
+      /* "Community rankings & leagues", */
+      "Holiday sports camps",
+      "Senior citizen fitness batches",
+    ],
   },
   {
     title: "Sports Associations & Bodies",

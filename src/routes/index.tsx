@@ -3,15 +3,16 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Trophy,
   Users,
   Zap,
-  MapPin,
   CalendarDays,
+  MapPin,
 } from "lucide-react";
 
 import heroImg from "@/assets/hero.jpg";
-import coachingImg from "@/assets/coaching.jpg";
 import tournamentImg from "@/assets/tournament.jpg";
 import racketImg from "@/assets/racket.jpg";
 import {
@@ -24,17 +25,20 @@ import {
   TiltCard,
 } from "@/components/site/anim";
 import {
-  ABOUT_STORY,
   DISCIPLINES,
   HERO_WORDS,
   PLAYER_SPOTLIGHT,
-  SERVICES,
   SITE,
   SPONSORS,
   STATS,
   UPCOMING_EVENT,
   TOURNAMENT_EVENTS,
 } from "@/data/content";
+import { SponsorshipStoryBanner } from "@/components/site/cta-banner";
+import { HomeShePaddleTeaser } from "@/components/site/shepaddle-ui";
+import { HomeAboutP3 } from "@/components/site/home-about-p3";
+import { HomeFounderSpotlight } from "@/components/site/founder-spotlight";
+import { HomeServicesGrid } from "@/components/site/home-services-grid";
 import { getHomeGalleryPreview } from "@/data/gallery-archive";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -47,7 +51,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "P3 Sports Management Company — table tennis academy in Mumbai, inter-corporate tournaments and the P3 Circle ranking community. Ignite your passion, play to perfection.",
+          "P3 Sports Management Company — table tennis academy in Mumbai and inter-corporate tournaments. Ignite your passion, play to perfection.",
       },
       {
         property: "og:title",
@@ -65,17 +69,48 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const HERO_SLIDES = [
+  {
+    src: "/hero/slide-1.jpg",
+    alt: "P3 Sports — professional sports media studio",
+  },
+  {
+    src: "/hero/slide-2.jpg",
+    alt: "Moonmoon Mukherjee, Founder — P3 Sports Management",
+  },
+  {
+    src: "/hero/slide-3.jpg",
+    alt: "Smash Her Story — iconic book launch with P3 Sports",
+  },
+] as const;
+
 function Home() {
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.replace(/^#/, "");
+      if (!id) return;
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
+
   return (
     <>
       <Hero />
       <Marquee items={DISCIPLINES} className="mt-0" />
       <StatsBand />
-      <AboutTeaser />
+      <HomeFounderSpotlight />
+      <HomeAboutP3 />
+      <HomeShePaddleTeaser />
       <ServicesGrid />
       <FeaturedEvent />
       <PlayerSpotlight />
       <SponsorsSection />
+      <SponsorshipStoryBanner />
       <HomeGalleryPreview />
       <FinalCta />
     </>
@@ -84,6 +119,7 @@ function Home() {
 
 function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     const t = setInterval(
@@ -93,116 +129,152 @@ function Hero() {
     return () => clearInterval(t);
   }, []);
 
+  useEffect(() => {
+    const t = setInterval(
+      () => setSlideIndex((i) => (i + 1) % HERO_SLIDES.length),
+      6500,
+    );
+    return () => clearInterval(t);
+  }, []);
+
+  const goSlide = (dir: -1 | 1) => {
+    setSlideIndex(
+      (i) => (i + dir + HERO_SLIDES.length) % HERO_SLIDES.length,
+    );
+  };
+
   return (
-    <section className="noise-overlay relative flex min-h-screen items-center overflow-hidden bg-navy">
-      <div className="absolute inset-0">
-        <img
-          src={heroImg}
-          alt="Table tennis player mid-smash in a lit arena"
-          className="h-full w-full object-cover object-[82%_center] sm:object-[88%_center]"
-          width={1024}
-          height={1024}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/15" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/60" />
-      </div>
+    <section className="bg-[#060a10] px-3 pb-6 pt-14 sm:px-5 sm:pb-8 sm:pt-[3.75rem]">
+      <div className="relative mx-auto min-h-[min(720px,calc(100vh-3.75rem))] max-w-[1380px] overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.85)] sm:rounded-[2rem]">
+        <div className="absolute inset-0 bg-navy" aria-hidden />
 
-      <div className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-20 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-xs font-bold tracking-[0.25em] text-primary uppercase"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-          </span>
-          P3 Sports Management Company
-        </motion.div>
-
-        <h1 className="font-display max-w-4xl text-[13vw] leading-[1.02] text-navy-foreground sm:text-7xl lg:text-[6.5rem]">
-          {["Play.", "Practice.", "Persevere."].map((word, i) => (
-            <motion.span
-              key={word}
-              initial={{ opacity: 0, y: 60, rotateX: 40 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 + i * 0.15 }}
-              className="mr-4 inline-block sm:mr-6"
+        <div className="absolute inset-y-0 left-[30%] right-0 overflow-hidden">
+          {HERO_SLIDES.map((slide, i) => (
+            <motion.div
+              key={slide.src}
+              initial={false}
+              animate={{
+                opacity: i === slideIndex ? 1 : 0,
+                scale: i === slideIndex ? 1 : 1.03,
+              }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+              aria-hidden={i !== slideIndex}
             >
-              {i === 1 ? (
-                <span className="text-primary">{word}</span>
-              ) : i === 2 ? (
-                <span className="text-stroke-light">{word}</span>
-              ) : (
-                word
-              )}
-            </motion.span>
+              <img
+                src={slide.src}
+                alt={i === slideIndex ? slide.alt : ""}
+                className="h-full w-full object-cover object-center sm:object-[65%_35%]"
+                width={1600}
+                height={900}
+              />
+            </motion.div>
           ))}
-        </h1>
-
-        <div className="mt-6 h-10 overflow-hidden sm:h-12">
-          <motion.p
-            key={wordIndex}
-            initial={{ y: 48, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -48, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-2xl text-primary sm:text-4xl"
-          >
-            {HERO_WORDS[wordIndex]}
-          </motion.p>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
-          className="mt-5 max-w-xl text-base leading-relaxed text-navy-foreground/75 sm:text-lg"
-        >
-          Ignite your passion, learn to deliver, master the strokes, play to
-          perfection — with P3 Sports. Your connect to the athlete within{" "}
-          <span className="font-bold text-foreground">YOU</span>.
-        </motion.p>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-[30%] z-[1] w-[min(28%,12rem)] bg-gradient-to-r from-navy to-transparent"
+        />
+        <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-navy/75 via-transparent to-navy/35" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.6 }}
-          className="mt-9 flex flex-wrap gap-4"
-        >
-          <Link
-            to="/services"
-            className="glow-primary group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+        <div className="relative z-10 flex min-h-[inherit] max-w-xl flex-col justify-center px-5 py-14 sm:px-10 sm:py-16 lg:max-w-[34%] lg:px-12 lg:py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-primary/15 px-4 py-1.5 text-[10px] font-bold tracking-[0.22em] text-primary uppercase sm:text-xs"
           >
-            Train with P3
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link
-            to="/tournaments"
-            className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/30 bg-transparent px-7 py-3.5 text-sm font-bold text-navy-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
-          >
-            <Trophy className="h-4 w-4" />
-            Upcoming Tournament
-          </Link>
-        </motion.div>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
+            P3 Sports Management Company
+          </motion.div>
 
+          <h1 className="font-display text-[11vw] leading-[1.02] text-white sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
+            {["Play.", "Practice.", "Persevere."].map((word, i) => (
+              <span key={word} className="mr-3 inline-block sm:mr-5">
+                {i === 1 ? (
+                  <span className="text-primary">{word}</span>
+                ) : i === 2 ? (
+                  <span className="text-stroke-light">{word}</span>
+                ) : (
+                  word
+                )}
+              </span>
+            ))}
+          </h1>
+
+          <div className="mt-5 h-9 overflow-hidden sm:mt-6 sm:h-11">
+            <motion.p
+              key={wordIndex}
+              initial={{ y: 36, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-xl text-primary sm:text-3xl"
+            >
+              {HERO_WORDS[wordIndex]}
+            </motion.p>
+          </div>
+
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/78 sm:text-base">
+            Ignite your passion, learn to deliver, master the strokes, play to
+            perfection — with P3 Sports. Your connect to the athlete within{" "}
+            <span className="font-bold text-white">YOU</span>.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
+            <Link
+              to="/services"
+              className="glow-primary group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02] sm:px-7 sm:py-3.5"
+            >
+              Train with P3
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              to="/tournaments"
+              className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary sm:px-7 sm:py-3.5"
+            >
+              <Trophy className="h-4 w-4" />
+              Upcoming Tournament
+            </Link>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Previous slide"
+          onClick={() => goSlide(-1)}
+          className="absolute top-1/2 left-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/50 sm:left-4 sm:h-11 sm:w-11"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next slide"
+          onClick={() => goSlide(1)}
+          className="absolute top-1/2 right-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/50 sm:right-4 sm:h-11 sm:w-11"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
+        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Go to slide ${i + 1}`}
+              onClick={() => setSlideIndex(i)}
+              className={`h-2 rounded-full transition-all ${
+                i === slideIndex
+                  ? "w-7 bg-primary"
+                  : "w-2 bg-white/45 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
-      >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-navy-foreground/40 p-1.5">
-          <motion.span
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6 }}
-            className="h-1.5 w-1.5 rounded-full bg-primary"
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }
@@ -230,69 +302,6 @@ function StatsBand() {
   );
 }
 
-function AboutTeaser() {
-  return (
-    <section className="relative overflow-hidden py-10 sm:py-14">
-      <div
-        aria-hidden
-        className="absolute top-1/3 -left-40 h-[420px] w-[420px] rounded-full bg-primary/10 blur-[120px]"
-      />
-      <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-2">
-        <Reveal>
-          <div className="group relative overflow-hidden rounded-3xl border border-border">
-            <img
-              src={coachingImg}
-              alt="Coach mentoring young players at the P3 academy"
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-xs font-bold tracking-widest text-foreground uppercase backdrop-blur">
-              <MapPin className="h-3.5 w-3.5 text-primary" /> Mumbai ·
-              Chandannagore · California
-            </div>
-          </div>
-        </Reveal>
-        <div>
-          <SectionHeading
-            eyebrow="Born out of passion"
-            title={
-              <>
-                Sports is for <span className="text-primary">everyone</span> —
-                and everyone has a champion within.
-              </>
-            }
-          />
-          <Reveal delay={0.2}>
-            <p className="mt-6 leading-relaxed text-muted-foreground">
-              {ABOUT_STORY.split("\n\n")[0]}
-            </p>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                to="/about"
-                className="group inline-flex items-center gap-2 text-sm font-bold text-primary"
-              >
-                Read the full story
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/team"
-                className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground"
-              >
-                Meet the team
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ServicesGrid() {
   return (
     <section className="relative py-10 sm:py-14">
@@ -306,24 +315,9 @@ function ServicesGrid() {
           }
           sub="Coaching, consultancy, staging assistance or a full tournament management package — a unique and memorable experience along the way."
           align="center"
+          className="mx-auto"
         />
-        <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s, i) => (
-            <StaggerItem key={s.title}>
-              <TiltCard className="group h-full rounded-2xl border border-border bg-card/60 p-6 transition-colors hover:border-primary/50">
-                <span className="font-display text-3xl text-primary/40 transition-colors group-hover:text-primary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 text-lg font-bold text-foreground">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {s.desc}
-                </p>
-              </TiltCard>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <HomeServicesGrid />
       </div>
     </section>
   );
@@ -635,12 +629,14 @@ function FinalCta() {
                 >
                   Get in touch — {SITE.phonePrimary}
                 </Link>
+                {/* P3 Circle CTA disabled sitewide
                 <Link
                   to="/circle"
                   className="rounded-full border border-navy-foreground/30 bg-transparent px-8 py-4 text-sm font-bold text-navy-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
                 >
                   Join the P3 Circle
                 </Link>
+                */}
               </div>
             </div>
           </div>

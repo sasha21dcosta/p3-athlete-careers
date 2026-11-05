@@ -234,12 +234,14 @@ const ARCHIVE_ITEMS: GalleryArchiveItem[] = [
     category: "Tournaments",
     previewCaption: "Ranking match — P3 archive",
   },
+  /* P3 Circle / community — disabled sitewide
   {
     id: "Image12b",
     title: "P3 Circle community meet-up",
     category: "Community",
     previewCaption: "P3 Circle meet-up — P3 archive",
   },
+  */
   {
     id: "Image10b",
     title: "Corporate league opening match",
