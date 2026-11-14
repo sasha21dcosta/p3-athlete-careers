@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Briefcase, MapPin, Clock, ArrowRight, Mail, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Briefcase,
+  Check,
+  GraduationCap,
+  Mail,
+  Users,
+} from "lucide-react";
 
 import {
   PageHero,
@@ -9,24 +15,24 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/site/anim";
-import { CAREER_OPENINGS, CAREER_PERKS, SITE } from "@/data/content";
+import { CAREERS_PAGE } from "@/data/careers";
+import { SITE } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
-      { title: "Careers — P3 Sports" },
+      { title: "Careers at P3 Sports" },
       {
         name: "description",
         content:
-          "Join P3 Sports — coaching, events, marketing and grassroots roles. Build your career in sports management with a team that lives Play · Practice · Persevere.",
+          "Join P3 Sports — event management, digital marketing, sponsorship, business development and coaching roles across Mumbai and India.",
       },
-      { property: "og:title", content: "Careers — P3 Sports" },
+      { property: "og:title", content: "Careers at P3 Sports" },
       {
         property: "og:description",
-        content:
-          "Build your career in sports management — coaching, tournaments, marketing and grassroots programmes.",
+        content: CAREERS_PAGE.intro[0],
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -36,102 +42,115 @@ export const Route = createFileRoute("/careers")({
 });
 
 function Careers() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [openRole, setOpenRole] = useState<number | null>(null);
+
+  const mailHref = `mailto:${SITE.emailInfo}?subject=${encodeURIComponent(CAREERS_PAGE.applySubject)}`;
 
   return (
     <>
       <PageHero
-        eyebrow="Careers"
+        eyebrow={CAREERS_PAGE.heroEyebrow}
         title={
           <>
-            Turn your passion into your{" "}
-            <span className="text-primary">profession</span>
+            Be a Part of the{" "}
+            <span className="text-primary">P3 Sports</span> Team!
           </>
         }
-        sub="Join the team behind Mumbai's most loved community tournaments and coaching programmes."
+        sub={CAREERS_PAGE.intro.join(" ")}
       />
 
-      {/* Openings */}
-      <section className="pb-8">
+      <section className="pb-10 sm:pb-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Current openings" title="Open roles" />
-          <Stagger className="mt-10 space-y-4">
-            {CAREER_OPENINGS.map((job, i) => {
-              const isOpen = open === i;
+          <SectionHeading
+            eyebrow="Team & operations"
+            title={CAREERS_PAGE.teamOpportunitiesHeading}
+          />
+          <ul className="mt-8 flex list-none flex-col gap-3 p-0">
+            {CAREERS_PAGE.teamRoles.map((job, i) => {
+              const isOpen = openRole === i;
+              const panelId = `career-role-panel-${i}`;
+              const headerId = `career-role-header-${i}`;
               return (
-                <StaggerItem key={job.title}>
-                  <motion.button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    layout
+                <li key={job.title} className="min-h-0">
+                  <div
                     className={cn(
-                      "w-full cursor-pointer rounded-2xl border p-6 text-left transition-colors",
+                      "rounded-2xl border transition-colors",
                       isOpen
-                        ? "border-primary/50 bg-card"
-                        : "border-border bg-card/60 hover:border-primary/30",
+                        ? "border-primary/45 bg-card shadow-sm"
+                        : "border-border bg-card/60",
                     )}
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
-                          <Briefcase className="h-3 w-3" /> {job.type}
+                    <button
+                      type="button"
+                      id={headerId}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpenRole(isOpen ? null : i)}
+                      className="flex w-full cursor-pointer items-start justify-between gap-4 p-5 text-left sm:p-6"
+                    >
+                      <div className="min-w-0">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-primary uppercase">
+                          <Briefcase className="h-3 w-3" />
+                          Open role
                         </span>
-                        <h3 className="font-display mt-2 text-2xl text-foreground">
+                        <h3 className="font-display mt-2 text-xl text-foreground sm:text-2xl">
                           {job.title}
                         </h3>
-                        <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs font-semibold text-muted-foreground">
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="h-3.5 w-3.5 text-primary" />
-                            {job.location}
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <Clock className="h-3.5 w-3.5 text-primary" />
-                            {job.schedule}
-                          </span>
-                        </p>
                       </div>
-                      <motion.span
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        className="text-2xl text-primary"
+                      <span
+                        className="shrink-0 text-2xl leading-none text-primary"
+                        aria-hidden
                       >
                         {isOpen ? "−" : "+"}
-                      </motion.span>
-                    </div>
-                    <motion.div
-                      initial={false}
-                      animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
+                      </span>
+                    </button>
+                    <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={headerId}
+                      className={cn(
+                        "grid transition-[grid-template-rows] duration-300 ease-out",
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                      )}
                     >
-                      <p className="pt-4 text-sm leading-relaxed text-muted-foreground">
-                        {job.desc}
-                      </p>
-                    </motion.div>
-                  </motion.button>
-                </StaggerItem>
+                      <div className="min-h-0 overflow-hidden">
+                        <ul className="space-y-2.5 border-t border-border/80 px-5 pt-4 pb-5 sm:px-6 sm:pb-6">
+                          {job.points.map((point) => (
+                            <li
+                              key={point}
+                              className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                            >
+                              <Check
+                                className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                                strokeWidth={2.5}
+                              />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
               );
             })}
-          </Stagger>
+          </ul>
         </div>
       </section>
 
-      {/* Why join */}
-      <section className="bg-navy py-16 sm:py-24">
+      <section className="border-y border-primary/10 bg-navy py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeading
-            eyebrow="Why P3"
-            title={
-              <>
-                A workplace that <span className="text-primary">plays</span>
-              </>
-            }
+            eyebrow="Culture"
+            title={CAREERS_PAGE.whyJoinHeading}
             className="[&_h2]:text-navy-foreground [&_p]:text-navy-foreground/70"
           />
-          <Stagger className="mt-10 grid gap-4 sm:grid-cols-2">
-            {CAREER_PERKS.map((perk) => (
+          <Stagger className="mt-8 grid gap-3 sm:grid-cols-2">
+            {CAREERS_PAGE.whyJoin.map((perk) => (
               <StaggerItem key={perk}>
                 <div className="flex items-start gap-3 rounded-2xl border border-navy-foreground/15 bg-navy-foreground/5 p-5">
-                  <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <p className="text-sm leading-relaxed text-navy-foreground/85">
+                  <Users className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <p className="text-sm leading-relaxed text-navy-foreground/88">
                     {perk}
                   </p>
                 </div>
@@ -141,23 +160,128 @@ function Careers() {
         </div>
       </section>
 
-      {/* How to apply */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6">
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
-            <h2 className="font-display text-4xl text-foreground sm:text-5xl">
-              Nothing that fits? Write to us anyway.
+            <p className="text-[10px] font-bold tracking-[0.22em] text-primary uppercase">
+              {CAREERS_PAGE.coachingEyebrow}
+            </p>
+            <h2 className="font-display mt-3 max-w-3xl text-3xl leading-tight text-foreground sm:text-4xl">
+              {CAREERS_PAGE.coachingTitle}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              We're always looking for coaches, referees, event crew and
-              storytellers who love sport. Send your resume and tell us what
-              you'd bring to the table.
+            <div className="mt-5 max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {CAREERS_PAGE.coachingIntro.map((p) => (
+                <p key={p.slice(0, 40)}>{p}</p>
+              ))}
+            </div>
+          </Reveal>
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-14">
+            <Reveal>
+              <h3 className="text-lg font-bold text-foreground">
+                {CAREERS_PAGE.coachingSportsHeading}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {CAREERS_PAGE.coachingSportsIntro}
+              </p>
+              <ul className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-2">
+                {CAREERS_PAGE.coachingSports.map((sport, i) => (
+                  <li
+                    key={sport}
+                    className="flex items-center gap-2 rounded-xl border border-border bg-card/80 px-3 py-2.5 text-xs font-semibold text-foreground sm:text-sm"
+                  >
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                      {i + 1}
+                    </span>
+                    {sport}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <div className="space-y-8">
+              <Reveal delay={0.05}>
+                <article className="rounded-2xl border border-border bg-card/60 p-6 sm:p-7">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <GraduationCap className="h-5 w-5" strokeWidth={1.75} />
+                    </span>
+                    <h3 className="font-display text-xl text-foreground">
+                      {CAREERS_PAGE.coachingResponsibilitiesHeading}
+                    </h3>
+                  </div>
+                  <ul className="mt-5 space-y-2.5">
+                    {CAREERS_PAGE.coachingResponsibilities.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                      >
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                          strokeWidth={2.5}
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+
+              <Reveal delay={0.1}>
+                <article className="rounded-2xl border border-primary/20 bg-gradient-to-br from-secondary/80 to-flare/25 p-6 sm:p-7">
+                  <h3 className="font-display text-xl text-foreground">
+                    {CAREERS_PAGE.whoCanApplyHeading}
+                  </h3>
+                  <ul className="mt-5 space-y-2.5">
+                    {CAREERS_PAGE.whoCanApply.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/90"
+                      >
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                          strokeWidth={2.5}
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-[#faf8f5] py-14 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <Reveal>
+            <h2 className="font-display text-3xl text-foreground sm:text-4xl">
+              {CAREERS_PAGE.ctaHeading}
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {CAREERS_PAGE.ctaBody}
+            </p>
+            <p className="mt-6 text-sm font-semibold text-foreground">
+              <Mail className="mr-2 inline h-4 w-4 text-primary" />
+              <a
+                href={`mailto:${SITE.emailInfo}`}
+                className="text-primary hover:underline"
+              >
+                {SITE.emailInfo}
+              </a>
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Subject:{" "}
+              <span className="font-medium text-foreground">
+                {CAREERS_PAGE.applySubject}
+              </span>
             </p>
             <a
-              href={`mailto:${SITE.emailInfo}?subject=${encodeURIComponent("Career enquiry — P3 Sports")}`}
-              className="glow-primary mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+              href={mailHref}
+              className="glow-primary mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02]"
             >
-              <Mail className="h-4 w-4" /> Email your resume
+              Send your CV
               <ArrowRight className="h-4 w-4" />
             </a>
           </Reveal>

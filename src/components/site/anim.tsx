@@ -105,7 +105,12 @@ export function SectionHeading({
     >
       {eyebrow && (
         <Reveal>
-          <p className="mb-3 flex items-center gap-2 text-xs font-bold tracking-[0.3em] text-primary uppercase">
+          <p
+            className={cn(
+              "mb-3 flex items-center gap-2 text-xs font-bold tracking-[0.3em] text-primary uppercase",
+              align === "center" && "justify-center",
+            )}
+          >
             <span className="inline-block h-2 w-2 rounded-full bg-primary" />
             {eyebrow}
           </p>

@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin, Medal, Venus } from "lucide-react";
 
-import coachingImg from "@/assets/coaching.jpg";
 import { FitIndiaBanner } from "@/components/site/fit-india-banner";
 import { Reveal, Stagger, StaggerItem } from "@/components/site/anim";
 import { ABOUT_P3_HOME } from "@/data/content";
@@ -24,8 +23,8 @@ export function HomeAboutP3() {
         <Reveal className="order-2 lg:order-1">
           <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <img
-              src={coachingImg}
-              alt="Coach mentoring young players at the P3 academy"
+              src="/about/p3-young-athletes.jpg"
+              alt="P3 academy athletes celebrating with medals and certificates"
               loading="lazy"
               width={1024}
               height={1024}
@@ -91,17 +90,10 @@ export function HomeAboutP3() {
             <FitIndiaBanner text={ABOUT_P3_HOME.fitIndia} />
           </Reveal>
 
-          <Reveal delay={0.16} className="mt-5 flex flex-wrap gap-4">
-            <Link
-              to="/about"
-              className="group inline-flex items-center gap-2 text-sm font-bold text-primary"
-            >
-              Read the full story
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+          <Reveal delay={0.16} className="mt-6">
             <Link
               to="/team"
-              className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition-transform hover:scale-[1.02] hover:bg-primary/95"
             >
               Meet the team
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

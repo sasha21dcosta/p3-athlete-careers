@@ -8,6 +8,7 @@ import {
   GraduationCap,
   HeartHandshake,
   Medal,
+  School,
   Trophy,
   Users,
   type LucideIcon,
@@ -26,6 +27,7 @@ export const SERVICE_DETAIL_ICONS: LucideIcon[] = [
   Compass,
   Users,
   HeartHandshake,
+  School,
 ];
 
 function ServiceTitle({ title }: { title: string }) {
@@ -158,13 +160,30 @@ export function ServiceDetailSection({
                   ))}
                 </ul>
 
-                <Link
-                  to="/contact"
-                  className="glow-primary mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.01] sm:w-auto sm:min-w-[16rem]"
-                >
-                  Enquire about this service
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  {detail.pageCta ? (
+                    <Link
+                      to={detail.pageCta.to}
+                      hash={detail.pageCta.hash}
+                      className="glow-primary inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.01] sm:w-auto sm:min-w-[16rem]"
+                    >
+                      {detail.pageCta.label}
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+                  ) : null}
+                  <Link
+                    to="/contact"
+                    className={cn(
+                      "inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-transform hover:scale-[1.01] sm:w-auto sm:min-w-[16rem]",
+                      detail.pageCta
+                        ? "border-2 border-primary/35 bg-white text-primary hover:border-primary hover:bg-primary/5"
+                        : "glow-primary bg-primary text-primary-foreground",
+                    )}
+                  >
+                    Enquire about this service
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
 
                 <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
                   {detail.note}

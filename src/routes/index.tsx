@@ -1,19 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Trophy,
-  Users,
-  Zap,
-  CalendarDays,
-  MapPin,
 } from "lucide-react";
 
 import heroImg from "@/assets/hero.jpg";
-import tournamentImg from "@/assets/tournament.jpg";
 import racketImg from "@/assets/racket.jpg";
 import {
   Counter,
@@ -27,17 +21,16 @@ import {
 import {
   DISCIPLINES,
   HERO_WORDS,
-  PLAYER_SPOTLIGHT,
+  ACADEMY_SPORT_PHOTOS,
   SITE,
   SPONSORS,
   STATS,
-  UPCOMING_EVENT,
-  TOURNAMENT_EVENTS,
 } from "@/data/content";
 import { SponsorshipStoryBanner } from "@/components/site/cta-banner";
+import { UpcomingEventCard } from "@/components/site/upcoming-event-card";
 import { HomeShePaddleTeaser } from "@/components/site/shepaddle-ui";
+import { HomeSchoolSportsTeaser } from "@/components/site/school-sports-ui";
 import { HomeAboutP3 } from "@/components/site/home-about-p3";
-import { HomeFounderSpotlight } from "@/components/site/founder-spotlight";
 import { HomeServicesGrid } from "@/components/site/home-services-grid";
 import { getHomeGalleryPreview } from "@/data/gallery-archive";
 import { createFileRoute } from "@tanstack/react-router";
@@ -71,16 +64,27 @@ export const Route = createFileRoute("/")({
 
 const HERO_SLIDES = [
   {
-    src: "/hero/slide-1.jpg",
-    alt: "P3 Sports — professional sports media studio",
+    src: "/hero/slide-summit.jpg",
+    alt: "Moonmoon Mukherjee honoured at the Lead Fit Summit",
+    imgClass:
+      "max-lg:object-cover max-lg:object-[center_35%] lg:object-cover lg:object-center",
   },
   {
-    src: "/hero/slide-2.jpg",
-    alt: "Moonmoon Mukherjee, Founder — P3 Sports Management",
+    src: "/hero/slide-sachin.jpg",
+    alt: "Sachin Tendulkar with P3 Sports at the table",
+    imgClass:
+      "max-lg:object-contain max-lg:object-top lg:object-cover lg:object-[center_12%]",
   },
   {
-    src: "/hero/slide-3.jpg",
-    alt: "Smash Her Story — iconic book launch with P3 Sports",
+    src: "/hero/slide-sports-studio.jpg",
+    alt: "P3 Sports professional broadcast studio",
+    imgClass: "object-cover object-center",
+  },
+  {
+    src: "/hero/slide-book-launch.jpg",
+    alt: "Smash Her Story — book launch with P3 Sports",
+    imgClass:
+      "max-lg:object-cover max-lg:object-[center_30%] lg:object-cover lg:object-center",
   },
 ] as const;
 
@@ -103,8 +107,8 @@ function Home() {
       <Hero />
       <Marquee items={DISCIPLINES} className="mt-0" />
       <StatsBand />
-      <HomeFounderSpotlight />
       <HomeAboutP3 />
+      <HomeSchoolSportsTeaser />
       <HomeShePaddleTeaser />
       <ServicesGrid />
       <FeaturedEvent />
@@ -120,6 +124,7 @@ function Home() {
 function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [autoplayKey, setAutoplayKey] = useState(0);
 
   useEffect(() => {
     const t = setInterval(
@@ -130,115 +135,174 @@ function Hero() {
   }, []);
 
   useEffect(() => {
-    const t = setInterval(
-      () => setSlideIndex((i) => (i + 1) % HERO_SLIDES.length),
-      6500,
-    );
+    if (HERO_SLIDES.length < 2) return;
+    const t = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % HERO_SLIDES.length);
+    }, 6500);
     return () => clearInterval(t);
+  }, [autoplayKey]);
+
+  const bumpAutoplay = useCallback(() => {
+    setAutoplayKey((k) => k + 1);
   }, []);
 
-  const goSlide = (dir: -1 | 1) => {
+  const goSlide = useCallback((dir: -1 | 1) => {
+    bumpAutoplay();
     setSlideIndex(
       (i) => (i + dir + HERO_SLIDES.length) % HERO_SLIDES.length,
     );
-  };
+  }, [bumpAutoplay]);
+
+  const goToSlide = useCallback(
+    (index: number) => {
+      bumpAutoplay();
+      setSlideIndex(index);
+    },
+    [bumpAutoplay],
+  );
 
   return (
-    <section className="bg-[#060a10] px-3 pb-6 pt-14 sm:px-5 sm:pb-8 sm:pt-[3.75rem]">
-      <div className="relative mx-auto min-h-[min(720px,calc(100vh-3.75rem))] max-w-[1380px] overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.85)] sm:rounded-[2rem]">
-        <div className="absolute inset-0 bg-navy" aria-hidden />
-
-        <div className="absolute inset-y-0 left-[30%] right-0 overflow-hidden">
-          {HERO_SLIDES.map((slide, i) => (
+    <section className="relative w-full overflow-hidden bg-navy pt-14 sm:pt-[3.75rem]">
+      <div className="relative mx-auto min-h-[min(640px,calc(100svh-3.75rem))] w-full max-w-[1600px] sm:min-h-[min(760px,calc(100svh-3.75rem))]">
+        <div className="grid min-h-[inherit] lg:grid-cols-[minmax(0,46%)_minmax(0,1fr)]">
+          {/* Copy — solid panel; no photo underneath */}
+          <div className="relative z-20 flex flex-col justify-center bg-navy px-4 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14 xl:px-14">
             <motion.div
-              key={slide.src}
-              initial={false}
-              animate={{
-                opacity: i === slideIndex ? 1 : 0,
-                scale: i === slideIndex ? 1 : 1.03,
-              }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-              aria-hidden={i !== slideIndex}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-primary/15 px-4 py-1.5 text-[10px] font-bold tracking-[0.22em] text-primary uppercase sm:text-xs"
             >
-              <img
-                src={slide.src}
-                alt={i === slideIndex ? slide.alt : ""}
-                className="h-full w-full object-cover object-center sm:object-[65%_35%]"
-                width={1600}
-                height={900}
-              />
-            </motion.div>
-          ))}
-        </div>
-
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-[30%] z-[1] w-[min(28%,12rem)] bg-gradient-to-r from-navy to-transparent"
-        />
-        <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-navy/75 via-transparent to-navy/35" />
-
-        <div className="relative z-10 flex min-h-[inherit] max-w-xl flex-col justify-center px-5 py-14 sm:px-10 sm:py-16 lg:max-w-[34%] lg:px-12 lg:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-primary/15 px-4 py-1.5 text-[10px] font-bold tracking-[0.22em] text-primary uppercase sm:text-xs"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-            </span>
-            P3 Sports Management Company
-          </motion.div>
-
-          <h1 className="font-display text-[11vw] leading-[1.02] text-white sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
-            {["Play.", "Practice.", "Persevere."].map((word, i) => (
-              <span key={word} className="mr-3 inline-block sm:mr-5">
-                {i === 1 ? (
-                  <span className="text-primary">{word}</span>
-                ) : i === 2 ? (
-                  <span className="text-stroke-light">{word}</span>
-                ) : (
-                  word
-                )}
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-            ))}
-          </h1>
+              P3 Sports Management Company
+            </motion.div>
 
-          <div className="mt-5 h-9 overflow-hidden sm:mt-6 sm:h-11">
-            <motion.p
-              key={wordIndex}
-              initial={{ y: 36, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-xl text-primary sm:text-3xl"
-            >
-              {HERO_WORDS[wordIndex]}
-            </motion.p>
+            <h1 className="font-display text-[2.35rem] leading-[1.05] text-white sm:text-6xl lg:text-[3.65rem] xl:text-[4.25rem]">
+              {["Play.", "Practice.", "Persevere."].map((word, i) => (
+                <span key={word} className="mr-2 inline-block sm:mr-4">
+                  {i === 1 ? (
+                    <span className="text-primary">{word}</span>
+                  ) : i === 2 ? (
+                    <span className="text-stroke-light">{word}</span>
+                  ) : (
+                    word
+                  )}
+                </span>
+              ))}
+            </h1>
+
+            <div className="mt-4 h-9 overflow-hidden sm:mt-6 sm:h-11">
+              <motion.p
+                key={wordIndex}
+                initial={{ y: 36, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-xl text-primary sm:text-3xl"
+              >
+                {HERO_WORDS[wordIndex]}
+              </motion.p>
+            </div>
+
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/82 sm:mt-5 sm:text-base">
+              Ignite your passion, learn to deliver, master the strokes, play to
+              perfection — with P3 Sports. Your connect to the athlete within{" "}
+              <span className="font-bold text-white">YOU</span>.
+            </p>
+
+            <div className="mt-7 sm:mt-8">
+              <Link
+                to="/services"
+                className="glow-primary group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02] sm:w-auto sm:px-7"
+              >
+                Train with P3
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
           </div>
 
-          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/78 sm:text-base">
-            Ignite your passion, learn to deliver, master the strokes, play to
-            perfection — with P3 Sports. Your connect to the athlete within{" "}
-            <span className="font-bold text-white">YOU</span>.
-          </p>
+          {/* Photography — right column only (center → right) */}
+          <div
+            className="relative min-h-[min(62vw,480px)] bg-navy sm:min-h-[min(52vh,520px)] lg:min-h-[inherit]"
+            aria-roledescription="carousel"
+            aria-label="Hero highlights"
+          >
+            {HERO_SLIDES.map((slide, i) => (
+              <motion.div
+                key={slide.src}
+                initial={false}
+                animate={{ opacity: i === slideIndex ? 1 : 0 }}
+                transition={{ duration: 0.85, ease: "easeInOut" }}
+                className="absolute inset-0"
+                aria-hidden={i !== slideIndex}
+              >
+                <img
+                  src={slide.src}
+                  alt={i === slideIndex ? slide.alt : ""}
+                  className={`h-full w-full ${slide.imgClass}`}
+                  width={1200}
+                  height={900}
+                />
+              </motion.div>
+            ))}
 
-          <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-            <Link
-              to="/services"
-              className="glow-primary group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02] sm:px-7 sm:py-3.5"
-            >
-              Train with P3
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/tournaments"
-              className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary sm:px-7 sm:py-3.5"
-            >
-              <Trophy className="h-4 w-4" />
-              Upcoming Tournament
-            </Link>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-16 bg-gradient-to-r from-navy to-transparent sm:w-24 lg:block lg:w-28"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-navy/55 via-transparent to-navy/15 lg:from-navy/35"
+            />
+
+            {/* Mobile / tablet slideshow controls — anchored to photo */}
+            <div className="absolute inset-x-0 bottom-0 z-30 flex items-center justify-between gap-3 px-3 pb-4 pt-10 sm:px-4 lg:hidden">
+              <button
+                type="button"
+                aria-label="Previous slide"
+                onClick={() => goSlide(-1)}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              <div
+                className="flex flex-1 justify-center gap-2"
+                role="tablist"
+                aria-label="Slide pagination"
+              >
+                {HERO_SLIDES.map((slide, i) => (
+                  <button
+                    key={slide.src}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === slideIndex}
+                    aria-label={`Go to slide ${i + 1}: ${slide.alt}`}
+                    onClick={() => goToSlide(i)}
+                    className={`h-2 rounded-full transition-all ${
+                      i === slideIndex
+                        ? "w-7 bg-primary"
+                        : "w-2 bg-white/50 hover:bg-white/75"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                aria-label="Next slide"
+                onClick={() => goSlide(1)}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            <p className="sr-only" aria-live="polite">
+              {HERO_SLIDES[slideIndex]?.alt}
+            </p>
           </div>
         </div>
 
@@ -246,7 +310,7 @@ function Hero() {
           type="button"
           aria-label="Previous slide"
           onClick={() => goSlide(-1)}
-          className="absolute top-1/2 left-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/50 sm:left-4 sm:h-11 sm:w-11"
+          className="absolute top-1/2 left-3 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/55 lg:left-[calc(46%-1.25rem)] lg:flex"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -254,18 +318,18 @@ function Hero() {
           type="button"
           aria-label="Next slide"
           onClick={() => goSlide(1)}
-          className="absolute top-1/2 right-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/50 sm:right-4 sm:h-11 sm:w-11"
+          className="absolute top-1/2 right-3 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/55 sm:right-4 lg:flex"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
 
-        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-          {HERO_SLIDES.map((_, i) => (
+        <div className="absolute bottom-5 left-1/2 z-30 hidden -translate-x-1/2 gap-2 lg:flex">
+          {HERO_SLIDES.map((slide, i) => (
             <button
-              key={i}
+              key={slide.src}
               type="button"
               aria-label={`Go to slide ${i + 1}`}
-              onClick={() => setSlideIndex(i)}
+              onClick={() => goToSlide(i)}
               className={`h-2 rounded-full transition-all ${
                 i === slideIndex
                   ? "w-7 bg-primary"
@@ -283,7 +347,7 @@ function StatsBand() {
   return (
     <section className="relative py-10 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <Stagger className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+        <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
           {STATS.map((s) => (
             <StaggerItem key={s.label}>
               <TiltCard className="h-full rounded-2xl border border-border bg-card/60 p-6 text-center backdrop-blur">
@@ -324,112 +388,7 @@ function ServicesGrid() {
 }
 
 function FeaturedEvent() {
-  const alsoUpcoming = TOURNAMENT_EVENTS.filter(
-    (e) => !e.featured && e.status === "registration-open",
-  ).slice(0, 2);
-
-  return (
-    <section className="relative overflow-hidden py-10 sm:py-14">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Upcoming events"
-          title={
-            <>
-              Next on the{" "}
-              <span className="text-primary">P3 calendar</span>
-            </>
-          }
-          sub="Corporate championships, open tournaments and academy events — dates, venues and categories at a glance."
-          className="mb-6 max-w-2xl"
-        />
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-primary/30">
-            <img
-              src={tournamentImg}
-              alt="Corporate table tennis tournament in full swing"
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/35" />
-            <div className="relative p-6 sm:p-10">
-              <p className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold tracking-[0.25em] text-primary uppercase">
-                <span className="inline-flex items-center gap-2">
-                  <Zap className="h-4 w-4" /> {UPCOMING_EVENT.edition}
-                </span>
-                <span className="text-navy-foreground/80">· Registration open</span>
-              </p>
-              <h2 className="font-display max-w-3xl text-3xl leading-[1.05] text-navy-foreground sm:text-4xl lg:text-5xl">
-                {UPCOMING_EVENT.title}
-              </h2>
-              <div className="mt-4 flex flex-col gap-2 text-sm text-navy-foreground sm:flex-row sm:flex-wrap sm:gap-x-6">
-                <span className="inline-flex items-center gap-2 font-semibold">
-                  <CalendarDays className="h-4 w-4 text-primary" />
-                  {UPCOMING_EVENT.dates}
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  {UPCOMING_EVENT.venue}
-                </span>
-              </div>
-              <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-navy-foreground">
-                <Users className="h-4 w-4 text-primary" />
-                {UPCOMING_EVENT.prizes}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {UPCOMING_EVENT.categories.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded-full border border-navy-foreground/25 bg-navy/60 px-3 py-1 text-xs font-semibold text-navy-foreground backdrop-blur"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Link
-                  to="/contact"
-                  className="glow-primary inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
-                >
-                  Register <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/tournaments"
-                  className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/30 px-7 py-3.5 text-sm font-bold text-navy-foreground backdrop-blur transition-colors hover:border-primary hover:text-primary"
-                >
-                  All tournaments
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-
-        {alsoUpcoming.length > 0 && (
-          <Stagger className="mt-4 grid gap-3 sm:grid-cols-2">
-            {alsoUpcoming.map((event) => (
-              <StaggerItem key={event.id}>
-                <Link
-                  to="/tournaments"
-                  className="block rounded-2xl border border-border bg-card p-4 transition-colors hover:border-primary/40 sm:p-5"
-                >
-                  <p className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
-                    {event.edition ?? "Upcoming"}
-                  </p>
-                  <h3 className="font-display mt-1 text-lg text-foreground">
-                    {event.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    {event.dates} · {event.venue}
-                  </p>
-                </Link>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        )}
-      </div>
-    </section>
-  );
+  return <UpcomingEventCard variant="home" />;
 }
 
 function PlayerSpotlight() {
@@ -450,31 +409,23 @@ function PlayerSpotlight() {
             className="max-w-xl"
           />
           <Stagger className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-            {PLAYER_SPOTLIGHT.map((p) => (
-              <StaggerItem key={p.name}>
+            {ACADEMY_SPORT_PHOTOS.map((p) => (
+              <StaggerItem key={p.photo}>
                 <article className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm">
                   <div className="relative aspect-[3/4] overflow-hidden bg-muted">
                     <img
                       src={p.photo}
-                      alt={`${p.name} — P3 Academy player`}
+                      alt={p.alt}
                       loading="lazy"
                       width={320}
                       height={400}
-                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 flex translate-x-[-102%] items-center justify-center bg-primary/95 transition-transform duration-500 ease-out group-hover:translate-x-0">
-                      <div className="text-center text-primary-foreground">
-                        <p className="text-xs font-bold tracking-[0.2em] uppercase">
-                          Group
-                        </p>
-                        <p className="mt-1 text-lg font-bold">{p.group}</p>
-                      </div>
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 via-navy/35 to-transparent px-3 pb-3 pt-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <p className="text-center text-[10px] font-bold tracking-[0.2em] text-navy-foreground uppercase">
+                        {p.sport}
+                      </p>
                     </div>
-                  </div>
-                  <div className="border-t border-border px-2 py-2.5 text-center">
-                    <h3 className="text-[11px] font-bold tracking-[0.1em] text-foreground uppercase sm:text-xs">
-                      {p.name}
-                    </h3>
                   </div>
                 </article>
               </StaggerItem>
