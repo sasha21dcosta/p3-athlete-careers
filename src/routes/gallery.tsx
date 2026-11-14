@@ -1,14 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Images } from "lucide-react";
 
-import {
-  GALLERY_ARCHIVE,
-  type GalleryCategory,
-} from "@/data/gallery-archive";
+import { GALLERY_ARCHIVE } from "@/data/gallery-archive";
 import { PageHero } from "@/components/site/anim";
-import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/gallery")({
@@ -33,22 +28,18 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
+/* Category filter tabs — disabled; show full archive
 const FILTERS: Array<GalleryCategory | "All"> = [
   "All",
   "Academy",
   "Tournaments",
   "Corporate",
-  /* "Community", */
   "Media",
 ];
+*/
 
 function Gallery() {
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
-  const shown = GALLERY_ARCHIVE.filter(
-    (p) =>
-      p.category !== "Community" &&
-      (filter === "All" || p.category === filter),
-  );
+  const shown = GALLERY_ARCHIVE;
 
   return (
     <>
@@ -65,40 +56,20 @@ function Gallery() {
 
       <section className="pb-20 sm:pb-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Images className="h-4 w-4 text-primary" />
+            {shown.length} photos
+          </p>
+
+          {/* Filter tabs — commented out
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {FILTERS.map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={cn(
-                    "relative rounded-full px-5 py-2 text-sm font-bold transition-colors",
-                    filter === f
-                      ? "text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {filter === f && (
-                    <motion.span
-                      layoutId="gallery-pill"
-                      className="absolute inset-0 rounded-full bg-primary"
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 32,
-                      }}
-                    />
-                  )}
-                  <span className="relative">{f}</span>
-                </button>
+                <button key={f} ...>{f}</button>
               ))}
             </div>
-            <p className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Images className="h-4 w-4 text-primary" />
-              {shown.length} {shown.length === 1 ? "photo" : "photos"}
-              {filter !== "All" ? ` · ${filter}` : ""}
-            </p>
           </div>
+          */}
 
           <motion.div
             layout
@@ -123,14 +94,12 @@ function Gallery() {
                     height={675}
                     className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/95 via-navy/75 to-transparent p-5 pt-12">
-                    <span className="text-[10px] font-bold tracking-[0.25em] text-primary uppercase">
-                      {p.category}
-                    </span>
-                    <p className="mt-1 text-sm font-semibold text-navy-foreground">
-                      {p.title}
-                    </p>
+                  {/* Per-photo category/title tags — commented out
+                  <figcaption className="...">
+                    <span>{p.category}</span>
+                    <p>{p.title}</p>
                   </figcaption>
+                  */}
                 </motion.figure>
               ))}
             </AnimatePresence>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Menu, X } from "lucide-react";
 import p3Logo from "@/assets/p3-logo.png";
 import { SITE } from "@/data/content";
 import { cn } from "@/lib/utils";
@@ -15,12 +15,14 @@ export type NavLinkItem = {
 
 export const NAV_LINKS: NavLinkItem[] = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About Us" },
+  { to: "/", label: "About Us", hash: "about-p3" },
   { to: "/services", label: "Our Services" },
-  { to: "/", label: "ShePaddle", badge: "New", hash: "shepaddle" },
-  { to: "/tournaments", label: "Tournaments" },
+  { to: "/school-sports", label: "School Sports" },
+  { to: "/shepaddle", label: "ShePaddle", badge: "New" },
+  // { to: "/tournaments", label: "Tournaments" },
   { to: "/gallery", label: "Gallery" },
-  { to: "/clients", label: "Our Clients" },
+  { to: "/careers", label: "Careers" },
+  // { to: "/clients", label: "Our Clients" },
 ];
 
 export function P3Mark({ className }: { className?: string }) {
@@ -45,9 +47,6 @@ export function Nav() {
   const isActive = (l: NavLinkItem) => {
     if (l.hash) {
       const h = hash?.replace(/^#/, "") ?? "";
-      if (l.hash === "shepaddle") {
-        return (pathname === "/" && h === l.hash) || pathname.startsWith("/shepaddle");
-      }
       return pathname === l.to && h === l.hash;
     }
     if (l.to === "/") {
@@ -184,7 +183,6 @@ export function Footer() {
     })),
     { to: "/team", label: "Our Team" },
     /* { to: "/circle", label: "P3 Circle" }, */
-    { to: "/careers", label: "Careers" },
     { to: "/contact", label: "Contact" },
   ];
   return (
@@ -202,22 +200,33 @@ export function Footer() {
             {SITE.tagline} — bringing knowledge, expertise and accessibility to
             sports, for all citizens on a healthy and happy sports ground.
           </p>
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex items-center gap-2.5">
             <a
               href={SITE.facebook}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-navy-foreground/20 px-4 py-1.5 text-xs font-semibold text-navy-foreground/80 transition-colors hover:border-primary hover:text-primary"
+              aria-label="P3 Sports on Facebook"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-foreground/20 text-navy-foreground/85 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
             >
-              Facebook
+              <Facebook className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} />
+            </a>
+            <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="P3 Sports on Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-foreground/20 text-navy-foreground/85 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+            >
+              <Instagram className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} />
             </a>
             <a
               href={SITE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-navy-foreground/20 px-4 py-1.5 text-xs font-semibold text-navy-foreground/80 transition-colors hover:border-primary hover:text-primary"
+              aria-label="P3 Sports on LinkedIn"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-foreground/20 text-navy-foreground/85 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
             >
-              LinkedIn
+              <Linkedin className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} />
             </a>
           </div>
         </div>

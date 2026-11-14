@@ -41,7 +41,7 @@ const INTERESTS = [
   "Academy coaching (adults)",
   "Tournament entry",
   "Corporate programme",
-  "School programme",
+  "School Sports program",
   "Partnership / sponsorship",
   "ShePaddle / women's events",
   "Something else",

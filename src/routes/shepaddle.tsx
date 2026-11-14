@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import { Reveal, SectionHeading } from "@/components/site/anim";
+import { UpcomingEventCard } from "@/components/site/upcoming-event-card";
 import { ShePaddleWordmark } from "@/components/site/shepaddle-brand";
 import {
   ShePaddleFeatureGrid,
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/shepaddle")({
 function ShePaddlePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[#eceef2] pt-24 pb-10 sm:pt-28 sm:pb-14">
+      <section className="relative overflow-hidden bg-white pt-24 pb-10 sm:pt-28 sm:pb-14">
         <div className="mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-sm bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
             <div className="grid lg:grid-cols-[minmax(0,1.48fr)_minmax(0,1fr)] lg:items-stretch">
@@ -43,12 +44,8 @@ function ShePaddlePage() {
                   <span className="h-px w-7 bg-primary" aria-hidden />
                   {SHEPADDLE.initiativeDisplay}
                 </p>
-                <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:gap-5">
+                <div className="mt-4">
                   <ShePaddleWordmark size="home" />
-                  <span className="hidden h-12 w-px bg-[#d8dde5] lg:block" />
-                  <p className="max-w-[10.5rem] text-[9px] font-bold leading-snug tracking-[0.12em] text-[#374151] uppercase sm:text-[10px]">
-                    {SHEPADDLE.title}
-                  </p>
                 </div>
                 <p className="mt-5 text-lg font-bold italic leading-snug text-[#111827] sm:text-xl">
                   {SHEPADDLE.tagline}
@@ -56,12 +53,16 @@ function ShePaddlePage() {
                 <p className="mt-3 text-sm leading-relaxed text-[#5b6472] sm:text-base">
                   {SHEPADDLE.heroSummary}
                 </p>
-                <div className="mt-6">
-                  <ShePaddleFeatureGrid />
+                <div className="mt-6 w-full min-w-0">
+                  <ShePaddleFeatureGrid compact variant="home" />
                 </div>
               </Reveal>
               <ShePaddleHeroPhoto className="min-h-[320px] sm:min-h-[380px]" />
             </div>
+          </div>
+
+          <div className="mt-10 rounded-[1.75rem] bg-[#eceef2] p-4 sm:mt-12 sm:p-6 lg:p-8">
+            <UpcomingEventCard variant="shepaddle" />
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_minmax(280px,360px)] lg:gap-10">

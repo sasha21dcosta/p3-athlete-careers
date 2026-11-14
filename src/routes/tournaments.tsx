@@ -70,7 +70,7 @@ function Tournaments() {
 
       <section className="pb-4 sm:pb-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <Stagger className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
             {STATS.map((s) => (
               <StaggerItem key={s.label}>
                 <TiltCard className="rounded-2xl border border-border bg-card p-5 text-center sm:p-6">
@@ -208,16 +208,18 @@ function StatusBadge({ status }: { status: TournamentEvent["status"] }) {
 }
 
 function FeaturedTournamentCard({ event }: { event: TournamentEvent }) {
+  const poster = event.image ?? tournamentImg;
+  const registerHref = event.registrationUrl;
+
   return (
     <article className="relative overflow-hidden rounded-3xl border border-primary/30">
       <img
-        src={tournamentImg}
-        alt=""
-        aria-hidden
+        src={poster}
+        alt={event.title}
         loading="lazy"
-        width={1024}
-        height={1024}
-        className="absolute inset-0 h-full w-full object-cover"
+        width={1600}
+        height={900}
+        className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/92 to-navy/55" />
       <div className="relative grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.15fr_1fr]">
@@ -232,7 +234,20 @@ function FeaturedTournamentCard({ event }: { event: TournamentEvent }) {
           </div>
           <h3 className="font-display mt-4 text-3xl leading-[1.05] text-navy-foreground sm:text-4xl lg:text-5xl">
             {event.title}
+            {event.edition ? (
+              <span className="text-primary"> – {event.edition}</span>
+            ) : null}
           </h3>
+          {event.subtitle ? (
+            <p className="mt-2 text-sm font-medium text-navy-foreground/75 sm:text-base">
+              {event.subtitle}
+            </p>
+          ) : null}
+          {event.slogan ? (
+            <p className="mt-3 text-base font-medium italic text-navy-foreground/90">
+              {event.slogan}
+            </p>
+          ) : null}
           <div className="mt-5 space-y-2 text-sm text-navy-foreground/85">
             <p className="flex items-center gap-2 font-semibold">
               <CalendarDays className="h-4 w-4 shrink-0 text-primary" />
@@ -257,12 +272,23 @@ function FeaturedTournamentCard({ event }: { event: TournamentEvent }) {
               </span>
             ))}
           </div>
-          <Link
-            to="/contact"
-            className="glow-primary mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
-          >
-            Register your team <ArrowRight className="h-4 w-4" />
-          </Link>
+          {registerHref ? (
+            <a
+              href={registerHref}
+              target="_blank"
+              rel="noreferrer"
+              className="glow-primary mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+            >
+              Register now <ArrowRight className="h-4 w-4" />
+            </a>
+          ) : (
+            <Link
+              to="/contact"
+              className="glow-primary mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+            >
+              Register your team <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
         </div>
         <div className="rounded-2xl border border-navy-foreground/15 bg-navy/40 p-5 backdrop-blur-sm sm:p-6">
           <p className="text-xs font-bold tracking-[0.22em] text-primary uppercase">

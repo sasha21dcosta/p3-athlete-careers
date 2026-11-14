@@ -16,6 +16,7 @@ export const SITE = {
     "Khalishani Mahavidyala, Chandannagore, Hooghly, West Bengal",
   facebook: "https://www.facebook.com/P3.sport/",
   linkedin: "https://www.linkedin.com/company/p3-sports-management-company",
+  instagram: "https://www.instagram.com/p3sportsindia",
   website: "https://www.p3-sports.com",
 };
 
@@ -27,19 +28,22 @@ export const HERO_WORDS = [
 ];
 
 export const STATS = [
-  { value: 1000, suffix: "+", label: "Players coached" },
-  { value: 21, suffix: "+", label: "Tournaments staged" },
-  { value: 50, suffix: "+", label: "Matches managed" },
-  { value: 6, suffix: "", label: "Disciplines covered" },
+  { value: 5000, suffix: "+", label: "Players coached" },
+  { value: 100, suffix: "+", label: "Tournaments staged" },
+  { value: 10, suffix: "", label: "Disciplines covered" },
 ];
 
 export const DISCIPLINES = [
+  "Cricket",
+  "Football",
+  "Basketball",
   "Table Tennis",
-  "Badminton",
+  "Lawn Tennis",
+  "Karate",
+  "Skating",
   "Squash",
-  "Volleyball",
-  "Kabaddi",
-  "Snooker",
+  "Badminton",
+  "Chess",
 ];
 
 export const SERVICES = [
@@ -77,6 +81,10 @@ export const SERVICES = [
     title: "Coaching for Under-privileged",
     desc: "Grassroot training and mentoring to make sport accessible to every child.",
   },
+  {
+    title: "School Sports Program",
+    desc: "A complete sports solution for schools — PE, after-school coaching, tournaments and talent pathways.",
+  },
 ];
 
 /** Services shown on site (excludes commented-out P3 Circle) */
@@ -94,6 +102,8 @@ export type ServiceDetail = {
   note: string;
   image: string;
   imageBadge?: string;
+  /** When set, primary CTA on /services (e.g. Explore School Sports). */
+  pageCta?: { label: string; to: string; hash?: string };
 };
 
 /** Detail sections for /services — one per home card (same titles as SERVICES_PUBLIC) */
@@ -225,6 +235,25 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     note: "Outreach programmes depend on partnerships and locations. Contact P3 to explore current grassroots initiatives.",
     image: "/services/07-grassroots.jpg",
   },
+  {
+    id: "school-sports-program",
+    index: "08",
+    eyebrow: "School sports",
+    title: "School Sports Program",
+    summary:
+      "A complete sports solution for schools — from physical education and training to tournaments and talent development.",
+    waysWeHelp: [
+      "In-school PE and structured sports curriculum on your campus",
+      "After-school coaching across multiple disciplines",
+      "Inter-school tournaments and professional event management",
+      "Summer camps, talent identification and development pathways",
+      "Certified coaches with quality monitoring on site",
+      "Partnership models tailored from preschool through age 18",
+    ],
+    note: "Programme scope and sports mix are shaped to your school. Visit the School Sports page for partner schools, disciplines and partnership details.",
+    image: "/services/08-school-sports.jpg",
+    pageCta: { label: "Explore School Sports", to: "/school-sports" },
+  },
 ];
 
 export const SERVICES_ADDITIONAL_SUPPORT = {
@@ -299,7 +328,7 @@ export const FOUNDER_PULL_QUOTE =
   "A passionate player who has served table tennis all her life — performing, mentoring and encouraging the game — and a woman recognized on international forums.";
 
 export const FOUNDER_JOURNEY =
-  "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India — the nation's only woman ITTF Certified Level-3 Coach and an International Umpire. She has represented Bengal, UP and Indian Railways, officiated the girls' finals at the 2009 Youth Commonwealth Games, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand. She founded and shaped P3 Sports, where coaching, mentoring and corporate and community events continue under her guidance.";
+  "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India — the nation's only woman ITTF Certified Level-3 Coach and an International Umpire. She has represented India, Bengal, UP and Indian Railways, works as a sports consultant, and has won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand. She founded and shaped P3 Sports, where coaching, mentoring and corporate and community events continue under her guidance.";
 
 /** Home founder block + brand vision (aligned with official P3 messaging) */
 export const P3_VISION = {
@@ -324,13 +353,13 @@ export const FOUNDER_CHAPTERS: FounderChapter[] = [
     id: "player",
     label: "The competitor",
     headline: "Fighting alongside the idols she grew up admiring",
-    body: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India. Endowed with exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally — representing Bengal, Uttar Pradesh and Indian Railways, and proving herself as an ace player on the world stage.",
+    body: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India. Endowed with exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally — representing India, Bengal, Uttar Pradesh and Indian Railways, and proving herself as an ace player on the world stage.",
   },
   {
     id: "coach",
     label: "The coach & umpire",
     headline: "India's first — and only — woman ITTF Level 3 Coach",
-    body: "She is the only Indian woman to earn ITTF Certified Level 3 Coach status — a pride for the nation. An International Umpire as well, she officiated the girls' final matches at the 2009 Youth Commonwealth Games. Recent achievements include international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
+    body: "She is the only Indian woman to earn ITTF Certified Level 3 Coach status — a pride for the nation. An International Umpire and sports consultant, she advises programmes and athletes with the same rigour she brings to the court. Recent achievements include international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
   },
   {
     id: "founder",
@@ -342,9 +371,9 @@ export const FOUNDER_CHAPTERS: FounderChapter[] = [
 
 export const FOUNDER_HIGHLIGHTS = [
   { value: "L3", label: "ITTF Level-3 Coach" },
-  { value: "2009", label: "Youth Commonwealth Games" },
+  { value: "Expert", label: "Sports consultant" },
   { value: "5+", label: "World medals" },
-  { value: "3", label: "Represented Bengal • UP • Indian Railways" },
+  { value: "4", label: "Represented India • Bengal • UP • Indian Railways" },
 ] as const;
 
 export type TeamMember = {
@@ -352,6 +381,8 @@ export type TeamMember = {
   role: string;
   initials: string;
   bio: string;
+  /** Shorter copy for leadership grid cards (no truncation). */
+  bioCard?: string;
   photo: string;
   featured?: boolean;
 };
@@ -363,7 +394,7 @@ export const TEAM: TeamMember[] = [
     initials: "MM",
     featured: true,
     photo: "/team/moonmoon.jpg",
-    bio: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India and is a pride for the nation as the only Indian woman to become an ITTF Certified Level 3 Coach. With exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally. Moonmoon took up the call to mentor and design the foundations of P3 Sports; under her guidance the company has grown to commendable levels of recognition, coaching and mentoring sportsmen while organizing corporate and social championships.\n\nAn ITTF Level-3 Coach and International Umpire, she has represented Bengal, UP and Indian Railways, officiated the girls' finals at the 2009 Youth Commonwealth Games, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
+    bio: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India and is a pride for the nation as the only Indian woman to become an ITTF Certified Level 3 Coach. With exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally. Moonmoon took up the call to mentor and design the foundations of P3 Sports; under her guidance the company has grown to commendable levels of recognition, coaching and mentoring sportsmen while organizing corporate and social championships.\n\nAn ITTF Level-3 Coach, International Umpire and sports consultant, she has represented India, Bengal, UP and Indian Railways, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
   },
   {
     name: "Tushar Kanti Ghosh",
@@ -371,6 +402,8 @@ export const TEAM: TeamMember[] = [
     initials: "TG",
     photo: "/team/tushar.jpg",
     bio: "An ace player of table tennis and a seasoned professional, Mr. Tushar Kanti Ghosh held West Bengal State Ranking No. 8 in 1971. He represented Burdwan and Calcutta University table tennis teams as Captain, served as Under Study table tennis coach for the West Bengal State Council of Sports, and holds the 1st Division Certificate. He presided as Founder General Secretary of Chandernagore District Table Tennis Association from 1972 to 1995, was Executive Committee Member for the stadium cell at the 1975 World TT Championships in Kolkata and for Press & Media during the 1985 World TT Championships in Delhi, and was member of the stadium cell at the 3rd SAF Games 1987. He is a member of West Bengal State Council of Sports and winner of the Best Organizer Award from Press Club & Government of West Bengal.",
+    bioCard:
+      "Ace table tennis player and organiser. West Bengal State Ranking No. 8 (1971); captained university and district teams. Led Chandernagore District Table Tennis Association for over two decades. World Championship stadium and media roles in Kolkata and Delhi. Member, West Bengal State Council of Sports; Best Organizer Award recipient.",
   },
   {
     name: "Dhrumil Dixit",
@@ -378,6 +411,15 @@ export const TEAM: TeamMember[] = [
     initials: "DD",
     photo: "/team/dhrumil.jpg",
     bio: "B.Tech (IT), MBA (Marketing) — NMIMS. Work experience includes Sports Analyst at HUDL and five years in sports marketing.",
+  },
+  {
+    name: "Maxwel Mascarenhas",
+    role: "Operations & Business Development Partner",
+    initials: "MS",
+    photo: "/team/maxwel-mascarenhas.jpg",
+    bio: "Maxwel Mascarenhas is P3 Sports’ Operations and Business Development Partner, where he actively promotes and supports the company’s nationwide sports and event initiatives. He amplifies event visibility through social media, direct outreach, and collaboration with local communities, and works closely with P3’s event management team to drive turnout and engagement at key events. These include corporate sports tournaments, community festivals, brand activations, and grassroots development programs. His work helps create memorable experiences, grow participation, and build awareness of the P3 brand.",
+    bioCard:
+      "Operations and Business Development Partner at P3 Sports. Drives visibility for nationwide events through social media, outreach and community partnerships. Works with the events team on corporate tournaments, festivals, activations and grassroots programmes to grow turnout, participation and brand awareness.",
   },
 ];
 
@@ -580,102 +622,31 @@ export type TournamentEvent = {
   contacts?: string;
   rules?: string[];
   featured?: boolean;
+  slogan?: string;
+  subtitle?: string;
+  image?: string;
+  registrationUrl?: string;
 };
 
 export const TOURNAMENT_EVENTS: TournamentEvent[] = [
   {
-    id: "inter-corporate-7",
+    id: "shepaddle-kochi-2026",
     featured: true,
-    edition: "7th Edition",
-    title: "P3 Sports Inter-Corporate Table Tennis Tournament",
-    dates: "9 & 10 April 2026",
-    venue: "Emerald Club, Chembur, Mumbai",
+    edition: "2nd Edition",
+    title: "ShePaddle",
+    subtitle: "International Women's Table Tennis Tournament",
+    dates: "10th – 13th December 2026",
+    venue: "Kochi, Kerala",
     status: "registration-open",
-    categories: [
-      "Mix Corporate Team Event",
-      "Corporate Men's Singles",
-      "Corporate Men's Masters 35+",
-      "Mixed Corporate Men's Doubles",
-    ],
-    prizes: "Cash prizes, trophies and medals for winners",
+    slogan: "Where Women Champions Meet. Where Stories Inspire.",
+    image: "/events/shepaddle-kochi-2026.jpg",
+    registrationUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfW93Iue7aziHrEfBZ6LL5XmgrY3N7Kne4DE7aYesorxRNn4Q/viewform",
+    categories: ["Celebrate", "Compete", "Connect", "Empower"],
+    prizes: "International women's table tennis — masters and open categories",
     eligibility:
-      "Only corporate / business-owner players may participate. Schedule is subject to change depending on entries in team and individual events.",
-    contacts: "Moonmoon — +91 99679 69506 · Ankit — +91 93210 95460",
-    rules: [
-      "On questions of fact, the umpire's decision is final.",
-      "On interpretation of laws, the chief referee's decision is final.",
-      "Players may take up to 1 minute between successive games.",
-      "Each player or pair may claim one time-out per individual match.",
-      "Towelling breaks apply after every 6 points and at change of ends in the final game.",
-    ],
-  },
-  {
-    id: "powai-open-2026",
-    title: "Powai Open Table Tennis Championship",
-    edition: "2026 Season",
-    dates: "24 & 25 May 2026",
-    venue: "Pawar Public School grounds, Powai, Mumbai",
-    status: "registration-open",
-    categories: [
-      "Open Singles",
-      "Under-18 Singles",
-      "Open Doubles",
-      "Women's Singles",
-    ],
-    prizes: "Trophies, medals and ranking points",
-    eligibility:
-      "Open to academy members and invited players. Draws published one week before the event.",
-    contacts: "info@p3-sports.com",
-  },
-  {
-    id: "ghosh-memorial",
-    title: "Jatindra Nath Ghosh Memorial Ranking TT Championship",
-    dates: "14 & 15 June 2026",
-    venue: "Khalishani Mahavidyala, Chandannagore, West Bengal",
-    status: "coming-soon",
-    categories: [
-      "Ranking Singles — Open",
-      "Ranking Doubles",
-      "Veterans 40+",
-      "Under-12 Development",
-    ],
-    prizes: "Ranking ladder updates, trophies and certificates",
-    eligibility:
-      "Academy members receive priority seeding. Registration opens 6 weeks before the tournament.",
-    contacts: "moonmoon@p3-sports.com",
-  },
-  {
-    id: "corporate-summer-league",
-    title: "P3 Corporate Summer League",
-    edition: "Pilot League",
-    dates: "July — August 2026 (weekly fixtures)",
-    venue: "Multiple corporate venues, Mumbai",
-    status: "coming-soon",
-    categories: [
-      "Corporate Team League",
-      "Friday Night Doubles",
-      "Captains' Challenge Cup",
-    ],
-    prizes: "League table, medals and end-of-season awards night",
-    eligibility:
-      "Company teams of 4–6 players. Fixtures scheduled with participating HR / sports committees.",
-    contacts: "info@p3-sports.com · moonmoon@p3-sports.com",
-  },
-  {
-    id: "junior-masters",
-    title: "P3 Academy Junior Masters",
-    dates: "6 September 2026",
-    venue: "P3 Sports Academy, Chandivali, Mumbai",
-    status: "coming-soon",
-    categories: [
-      "Under-12",
-      "Under-18",
-      "Academy Doubles",
-      "Coaches' Exhibition Match",
-    ],
-    prizes: "Medals, academy scholarships and guest coaching sessions",
-    eligibility: "For enrolled academy batches and invited partner schools.",
-    contacts: SITE.phonePrimary,
+      "Women players from India and across the world. Complete the official registration form for category details, fees and travel information.",
+    contacts: `${SITE.emailInfo} · ${SITE.phonePrimary}`,
   },
 ];
 
@@ -701,28 +672,28 @@ export const PAST_TOURNAMENTS = [
   },
 ];
 
-export const PLAYER_SPOTLIGHT = [
+export const ACADEMY_SPORT_PHOTOS = [
   {
-    name: "Mrinalini Singh",
-    group: "Under 12",
+    sport: "Badminton",
+    photo: "/academy-sports/badminton-academy.jpg",
+    alt: "Young P3 badminton player on court",
+  },
+  {
+    sport: "Table Tennis",
     photo: "/academy-players/1.png",
+    alt: "Young table tennis player at the P3 academy",
   },
   {
-    name: "Soham Sinha",
-    group: "Under 18",
-    photo: "/academy-players/2.png",
+    sport: "Skating",
+    photo: "/academy-sports/skating.jpg",
+    alt: "Junior skater practicing inline skating at P3",
   },
   {
-    name: "Rajdeep Singha",
-    group: "Under 18",
-    photo: "/academy-players/3.png",
+    sport: "Chess",
+    photo: "/academy-sports/chess.jpg",
+    alt: "Chess coaching session with young players at P3",
   },
-  {
-    name: "Gauri Deshmukh",
-    group: "Under 40",
-    photo: "/academy-players/4.png",
-  },
-];
+] as const;
 
 export const CLIENT_SECTORS = [
   {

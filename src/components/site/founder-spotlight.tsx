@@ -1,26 +1,38 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Medal, Trophy, Users } from "lucide-react";
+import { ArrowRight, Award, Briefcase, Medal, Users } from "lucide-react";
 
-import { Reveal, SectionHeading } from "@/components/site/anim";
+import { Reveal } from "@/components/site/anim";
 import {
   FOUNDER_HIGHLIGHTS,
-  FOUNDER_JOURNEY,
+  FOUNDER_NOTE,
   FOUNDER_PULL_QUOTE,
-  FOUNDER_TAGLINE,
   SITE,
   getFounderMember,
 } from "@/data/content";
 
-const HIGHLIGHT_ICONS = [Award, Trophy, Medal, Users] as const;
+const HIGHLIGHT_ICONS = [Award, Briefcase, Medal, Users] as const;
 
-export function HomeFounderSpotlight() {
+type FounderSpotlightSectionProps = {
+  /** Show CTA linking to the full team page (home only). */
+  showTeamLink?: boolean;
+  className?: string;
+};
+
+export function FounderSpotlightSection({
+  showTeamLink = false,
+  className,
+}: FounderSpotlightSectionProps) {
   const founder = getFounderMember();
+  const bioParagraphs = founder.bio.split("\n\n").filter(Boolean);
 
   return (
     <section
       id="founder"
       aria-labelledby="founder-heading"
-      className="relative overflow-hidden border-y border-primary/10 bg-gradient-to-b from-secondary/30 via-background to-background py-12 sm:py-16"
+      className={
+        className ??
+        "relative overflow-hidden border-y border-primary/10 bg-gradient-to-b from-secondary/30 via-background to-background py-14 sm:py-20"
+      }
     >
       <h2 id="founder-heading" className="sr-only">
         Meet the founder — {founder.name}
@@ -35,20 +47,7 @@ export function HomeFounderSpotlight() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Meet the founder"
-          title={
-            <>
-              The heart of{" "}
-              <span className="text-primary">P3</span>{" "}
-              <span className="text-stroke-primary">Sports</span>
-            </>
-          }
-          sub={FOUNDER_TAGLINE}
-          className="max-w-3xl"
-        />
-
-        <Reveal delay={0.12} className="mt-10 sm:mt-12">
+        <Reveal delay={0.12}>
           <div className="overflow-hidden rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card via-background to-secondary/40 shadow-[0_10px_36px_rgba(242,102,103,0.1)] ring-1 ring-primary/10">
             <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] xl:grid-cols-[minmax(0,360px)_1fr]">
               <div className="relative border-b border-border/80 p-6 sm:p-8 lg:border-r lg:border-b-0">
@@ -78,10 +77,10 @@ export function HomeFounderSpotlight() {
               </div>
 
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
-                <blockquote className="relative border-l-[3px] border-primary pl-5 sm:pl-6">
+                <blockquote className="relative rounded-2xl border border-primary/15 bg-primary/[0.04] px-5 py-5 pl-6 sm:px-6 sm:py-6 sm:pl-7">
                   <span
                     aria-hidden
-                    className="font-display absolute -top-2 left-3 text-4xl leading-none text-primary/30 sm:left-4 sm:text-5xl"
+                    className="font-display absolute -top-1 left-4 text-4xl leading-none text-primary/35 sm:left-5 sm:text-5xl"
                   >
                     “
                   </span>
@@ -104,7 +103,7 @@ export function HomeFounderSpotlight() {
                         <p className="font-display mt-2.5 text-2xl text-primary sm:text-3xl">
                           {h.value}
                         </p>
-                        <p className="mt-1.5 text-[10px] font-semibold leading-snug text-foreground sm:text-[11px]">
+                        <p className="mt-1.5 text-[9px] font-semibold leading-snug text-foreground sm:text-[10px]">
                           {h.label}
                         </p>
                       </div>
@@ -117,16 +116,30 @@ export function HomeFounderSpotlight() {
                     <span className="inline-block h-2 w-2 rounded-full bg-primary" />
                     Her journey
                   </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                    {FOUNDER_JOURNEY}
-                  </p>
-                  <Link
-                    to="/team"
-                    className="group mt-6 inline-flex items-center gap-2 rounded-full border border-primary/30 px-5 py-2.5 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-primary/5"
-                  >
-                    Meet the full team
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
+                  <div className="mt-4 space-y-4 border-l-[3px] border-primary/35 pl-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {bioParagraphs.map((p) => (
+                      <p key={p.slice(0, 48)}>{p}</p>
+                    ))}
+                  </div>
+
+                  <figure className="mt-8 rounded-2xl border border-navy/15 bg-navy/[0.04] px-5 py-5 sm:px-6">
+                    <blockquote className="text-sm leading-relaxed text-foreground/85 italic sm:text-base">
+                      “{FOUNDER_NOTE}”
+                    </blockquote>
+                    <figcaption className="mt-3 text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+                      — {founder.name}, on the P3 way
+                    </figcaption>
+                  </figure>
+
+                  {showTeamLink ? (
+                    <Link
+                      to="/team"
+                      className="group mt-8 inline-flex items-center gap-2 rounded-full border border-primary/30 px-5 py-2.5 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-primary/5"
+                    >
+                      Meet the full team
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>
