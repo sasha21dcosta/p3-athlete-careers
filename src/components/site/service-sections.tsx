@@ -7,6 +7,7 @@ import {
   Globe,
   GraduationCap,
   HeartHandshake,
+  Home,
   Medal,
   School,
   Trophy,
@@ -138,7 +139,9 @@ export function ServiceDetailSection({
                 </p>
 
                 <h2 className="font-display mt-4 text-3xl leading-[1.12] text-navy sm:text-4xl lg:text-[2.4rem]">
-                  <ServiceTitle title={detail.title} />
+                  <ServiceTitle
+                    title={detail.servicePageTitle ?? detail.title}
+                  />
                 </h2>
 
                 <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">

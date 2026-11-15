@@ -15,7 +15,7 @@ export const SCHOOL_SPORTS = {
   features: [
     {
       label: "In-School Programs",
-      desc: "Structured PE & sports curriculum",
+      desc: "Curriculum-based in-school programme",
     },
     {
       label: "After-School Training",
@@ -161,6 +161,13 @@ export const SCHOOL_SPORTS = {
     "Badminton",
     "Chess",
   ],
+
+  inSchoolPrograms: {
+    title: "In-School Programs",
+    body: "Curriculum-based PE and sports sessions woven into the school timetable — structured programmes delivered during school hours with certified P3 coaches.",
+    image: "/school-sports/programs.jpg",
+    imageAlt: "P3 in-school sports programme on campus",
+  },
 
   summerCamps: {
     title: "Summer camps",

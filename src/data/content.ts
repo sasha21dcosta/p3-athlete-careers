@@ -85,6 +85,10 @@ export const SERVICES = [
     title: "School Sports Program",
     desc: "A complete sports solution for schools — PE, after-school coaching, tournaments and talent pathways.",
   },
+  {
+    title: "P3 Sports Club House",
+    desc: "Professional sports management at residential clubhouses — coaching, leagues and revenue-sharing on your existing facilities.",
+  },
 ];
 
 /** Services shown on site (excludes commented-out P3 Circle) */
@@ -104,6 +108,10 @@ export type ServiceDetail = {
   imageBadge?: string;
   /** When set, primary CTA on /services (e.g. Explore School Sports). */
   pageCta?: { label: string; to: string; hash?: string };
+  /** When set, /services section heading (home grid still uses `title`). */
+  servicePageTitle?: string;
+  /** When set, shorter blurb on the home What we do grid only. */
+  homeSummary?: string;
 };
 
 /** Detail sections for /services — one per home card (same titles as SERVICES_PUBLIC) */
@@ -253,6 +261,28 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     note: "Programme scope and sports mix are shaped to your school. Visit the School Sports page for partner schools, disciplines and partnership details.",
     image: "/services/08-school-sports.jpg",
     pageCta: { label: "Explore School Sports", to: "/school-sports" },
+  },
+  {
+    id: "p3-sports-club-house",
+    index: "09",
+    eyebrow: "Club house programmes",
+    title: "P3 Sports Club House",
+    servicePageTitle: "Professional Sports Management For Your Club House",
+    homeSummary:
+      "Coaching, leagues and resident events at your society clubhouse — on your existing facilities.",
+    summary:
+      "P3 Sports is built on passion for fitness and community — bringing certified coaches, resident events and society leagues to your clubhouse so professionals, amateurs and masters can train together on a platform that improves health, skills and neighborhood bonds.",
+    waysWeHelp: [
+      "Weekday morning and evening plus weekend coaching across 12 sports",
+      "Full-time coaches and sports markers with customized plans, assessments and app support",
+      "Intra-community leagues, resident sports days and pathways to district and national events",
+      "Revenue-sharing coaching packages that activate inbuilt facilities without extra capital",
+      "Summer camps, tournaments and family-friendly recreation at the society club house",
+      "Trusted partners for Hiranandani, Nahar, Lake Homes and societies across Mumbai",
+    ],
+    note: "Package duration, coach specialization and pricing are adjusted to your society’s needs. Enquire via contact for Moonmoon Mukherjee or Siddhesh Rampurkar — coaching, consultancy or full tournament management.",
+    image: "/services/09-clubhouse.jpg",
+    imageBadge: "Residential societies · Mumbai",
   },
 ];
 

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/services")({
       {
         name: "description",
         content:
-          "Academy coaching, certified coaches, tournaments, corporate sports events, sports travel and grassroots programmes — comprehensive sports solutions by P3 Sports.",
+          "Academy coaching, certified coaches, tournaments, corporate events, club house programmes, sports travel and grassroots initiatives — comprehensive sports solutions by P3 Sports.",
       },
       { property: "og:title", content: "Our Services — P3 Sports" },
       {

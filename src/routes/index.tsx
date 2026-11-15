@@ -31,6 +31,7 @@ import { UpcomingEventCard } from "@/components/site/upcoming-event-card";
 import { HomeShePaddleTeaser } from "@/components/site/shepaddle-ui";
 import { HomeSchoolSportsTeaser } from "@/components/site/school-sports-ui";
 import { HomeAboutP3 } from "@/components/site/home-about-p3";
+import { HomeTeamPromo } from "@/components/site/home-team-promo";
 import { HomeServicesGrid } from "@/components/site/home-services-grid";
 import { getHomeGalleryPreview } from "@/data/gallery-archive";
 import { createFileRoute } from "@tanstack/react-router";
@@ -62,6 +63,9 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const HERO_SLIDE_MS = 4800;
+const HERO_CROSSFADE = { duration: 0.95, ease: [0.33, 1, 0.68, 1] as const };
+
 const HERO_SLIDES = [
   {
     src: "/hero/slide-summit.jpg",
@@ -81,10 +85,15 @@ const HERO_SLIDES = [
     imgClass: "object-cover object-center",
   },
   {
-    src: "/hero/slide-book-launch.jpg",
-    alt: "Smash Her Story — book launch with P3 Sports",
+    src: "/hero/slide-iconic-book-launch.jpg",
+    alt: "Iconic Book Launch — Smash Her Story with ShePaddle and P3 Sports",
     imgClass:
-      "max-lg:object-cover max-lg:object-[center_30%] lg:object-cover lg:object-center",
+      "max-lg:object-cover max-lg:object-[center_42%] lg:object-cover lg:object-center",
+  },
+  {
+    src: "/hero/slide-podcast.jpg",
+    alt: "P3 Sports — coaches and leaders in the media studio",
+    imgClass: "object-cover object-center",
   },
 ] as const;
 
@@ -108,6 +117,7 @@ function Home() {
       <Marquee items={DISCIPLINES} className="mt-0" />
       <StatsBand />
       <HomeAboutP3 />
+      <HomeTeamPromo />
       <HomeSchoolSportsTeaser />
       <HomeShePaddleTeaser />
       <ServicesGrid />
@@ -138,7 +148,7 @@ function Hero() {
     if (HERO_SLIDES.length < 2) return;
     const t = setInterval(() => {
       setSlideIndex((i) => (i + 1) % HERO_SLIDES.length);
-    }, 6500);
+    }, HERO_SLIDE_MS);
     return () => clearInterval(t);
   }, [autoplayKey]);
 
@@ -234,8 +244,8 @@ function Hero() {
                 key={slide.src}
                 initial={false}
                 animate={{ opacity: i === slideIndex ? 1 : 0 }}
-                transition={{ duration: 0.85, ease: "easeInOut" }}
-                className="absolute inset-0"
+                transition={HERO_CROSSFADE}
+                className="absolute inset-0 will-change-[opacity]"
                 aria-hidden={i !== slideIndex}
               >
                 <img

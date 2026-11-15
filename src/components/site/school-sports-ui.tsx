@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Brain,
+  Building2,
   GraduationCap,
   Heart,
   School,
@@ -17,7 +18,13 @@ import { SlantedMediaPanel } from "@/components/site/slanted-media-panel";
 import { SCHOOL_SPORTS } from "@/data/school-sports";
 import { cn } from "@/lib/utils";
 
-const FEATURE_ICONS = [School, GraduationCap, Trophy, Sparkles] as const;
+const FEATURE_ICONS = [
+  School,
+  GraduationCap,
+  Trophy,
+  Sparkles,
+  Building2,
+] as const;
 
 export function SchoolSportsFeatureGrid({
   variant = "home",
@@ -235,7 +242,7 @@ export function SchoolSportsApproachGrid() {
 
 export function SchoolSportsOfferGrid() {
   return (
-    <Stagger className="grid gap-4 sm:grid-cols-2">
+    <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {SCHOOL_SPORTS.whatWeOffer.map((item) => (
         <StaggerItem key={item.title}>
           <article className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
@@ -425,6 +432,7 @@ function ProgramCard({
   block,
 }: {
   block:
+    | typeof SCHOOL_SPORTS.inSchoolPrograms
     | typeof SCHOOL_SPORTS.summerCamps
     | typeof SCHOOL_SPORTS.tournamentsBlock
     | typeof SCHOOL_SPORTS.sportsTourism;
@@ -460,11 +468,14 @@ function ProgramCard({
   );
 }
 
-/** Summer camps & Tournaments on top; Sports tourism full width below. */
+/** In-school programmes, summer camps & tournaments; sports tourism full width below. */
 export function SchoolSportsProgramsRow() {
   return (
     <div className="space-y-5 lg:space-y-6">
-      <Stagger className="grid gap-5 sm:grid-cols-2 lg:gap-6">
+      <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <StaggerItem>
+          <ProgramCard block={SCHOOL_SPORTS.inSchoolPrograms} />
+        </StaggerItem>
         <StaggerItem>
           <ProgramCard block={SCHOOL_SPORTS.summerCamps} />
         </StaggerItem>

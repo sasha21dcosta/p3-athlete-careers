@@ -21,6 +21,7 @@ export const NAV_LINKS: NavLinkItem[] = [
   { to: "/shepaddle", label: "ShePaddle", badge: "New" },
   // { to: "/tournaments", label: "Tournaments" },
   { to: "/gallery", label: "Gallery" },
+  { to: "/team", label: "Our Team" },
   { to: "/careers", label: "Careers" },
   // { to: "/clients", label: "Our Clients" },
 ];
@@ -181,7 +182,6 @@ export function Footer() {
       label: l.label,
       hash: l.hash,
     })),
-    { to: "/team", label: "Our Team" },
     /* { to: "/circle", label: "P3 Circle" }, */
     { to: "/contact", label: "Contact" },
   ];
