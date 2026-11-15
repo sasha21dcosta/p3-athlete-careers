@@ -7,7 +7,7 @@ import { SERVICE_DETAILS } from "@/data/content";
 
 export function HomeServicesGrid() {
   return (
-    <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {SERVICE_DETAILS.map((service, i) => {
         const Icon: LucideIcon = SERVICE_DETAIL_ICONS[i] ?? SERVICE_DETAIL_ICONS[0];
         return (
@@ -25,7 +25,7 @@ export function HomeServicesGrid() {
                 {service.title}
               </h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {service.summary}
+                {service.homeSummary ?? service.summary}
               </p>
               <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors group-hover:text-primary">
                 Learn more

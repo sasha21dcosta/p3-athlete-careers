@@ -1,5 +1,4 @@
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Medal, Venus } from "lucide-react";
+import { MapPin, Medal, Venus } from "lucide-react";
 
 import { FitIndiaBanner } from "@/components/site/fit-india-banner";
 import { Reveal, Stagger, StaggerItem } from "@/components/site/anim";
@@ -32,7 +31,7 @@ export function HomeAboutP3() {
             />
             <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border/80 bg-background/90 px-3 py-1.5 text-[10px] font-bold tracking-[0.16em] text-foreground uppercase backdrop-blur">
               <MapPin className="h-3 w-3 shrink-0 text-primary" />
-              Mumbai · Chandannagore · California
+              Mumbai · Kolkata
             </div>
           </div>
         </Reveal>
@@ -90,15 +89,6 @@ export function HomeAboutP3() {
             <FitIndiaBanner text={ABOUT_P3_HOME.fitIndia} />
           </Reveal>
 
-          <Reveal delay={0.16} className="mt-6">
-            <Link
-              to="/team"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition-transform hover:scale-[1.02] hover:bg-primary/95"
-            >
-              Meet the team
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Reveal>
         </div>
       </div>
     </section>

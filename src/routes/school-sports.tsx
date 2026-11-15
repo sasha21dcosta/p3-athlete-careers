@@ -163,7 +163,17 @@ function SchoolSportsPage() {
         </section>
 
         <section>
-          <div className="mt-2">
+          <SectionHeading
+            eyebrow="Programmes"
+            title={
+              <>
+                In-school, camps &{" "}
+                <span className="text-primary">tournaments</span>
+              </>
+            }
+            sub="Curriculum-based on-campus delivery, vacation camps and inter-school championships."
+          />
+          <div className="mt-8">
             <SchoolSportsProgramsRow />
           </div>
         </section>
