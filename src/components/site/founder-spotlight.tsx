@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Briefcase, Medal, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  Briefcase,
+  Linkedin,
+  Medal,
+  Users,
+} from "lucide-react";
 
 import { Reveal } from "@/components/site/anim";
 import {

@@ -9,7 +9,7 @@ import {
   StaggerItem,
   TiltCard,
 } from "@/components/site/anim";
-import { CLIENT_SECTORS, PARTNER_VENUES } from "@/data/content";
+import { CLIENT_SECTORS, PARTNER_VENUES, SITE } from "@/data/content";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/clients")({
@@ -121,10 +121,10 @@ function Clients() {
               Sponsor a championship, host an employee league or bring a
               coaching programme to your campus — write to us at{" "}
               <a
-                href="mailto:info@p3-sports.com"
+                href={`mailto:${SITE.emailMoonmoon}`}
                 className="font-semibold text-primary"
               >
-                info@p3-sports.com
+                {SITE.emailMoonmoon}
               </a>
             </p>
             <Link

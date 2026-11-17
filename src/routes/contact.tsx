@@ -1,8 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
-  CheckCircle2,
   Mail,
   MapPin,
   Phone,
@@ -45,7 +43,41 @@ const INTERESTS = [
   "Partnership / sponsorship",
   "ShePaddle / women's events",
   "Something else",
-];
+] as const;
+
+function subjectForInterest(interest: string) {
+  return interest
+    ? `P3 Sports enquiry — ${interest}`
+    : "P3 Sports — website enquiry";
+}
+
+function buildMailtoHref(form: {
+  name: string;
+  phone: string;
+  email: string;
+  interest: string;
+  subject: string;
+  message: string;
+}) {
+  const to = SITE.emailMoonmoon;
+  const subject = form.subject.trim() || subjectForInterest(form.interest);
+  const body = [
+    "Hello P3 Sports,",
+    "",
+    form.message,
+    "",
+    "---",
+    `Name: ${form.name}`,
+    `Phone: ${form.phone}`,
+    `Email: ${form.email}`,
+    `Enquiry type: ${form.interest}`,
+  ].join("\n");
+  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function openMailClient(href: string) {
+  window.location.href = href;
+}
 
 function ContactEyebrow({ children }: { children: ReactNode }) {
   return (
@@ -115,25 +147,12 @@ function Contact() {
     phone: "",
     email: "",
     interest: "",
+    subject: "",
     message: "",
   });
-  const [sent, setSent] = useState(false);
-
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const interest = form.interest || "General enquiry";
-    const body = [
-      `Name: ${form.name}`,
-      `Phone: ${form.phone}`,
-      `Email: ${form.email}`,
-      `Interested in: ${interest}`,
-      "",
-      form.message,
-    ].join("\n");
-    window.location.href = `mailto:${SITE.emailInfo}?subject=${encodeURIComponent(
-      `P3 Sports enquiry — ${interest}`,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    openMailClient(buildMailtoHref(form));
   };
 
   const field = cn(
@@ -189,9 +208,9 @@ function Contact() {
               <ReachCard
                 icon={Mail}
                 label="Email"
-                href={`mailto:${SITE.emailInfo}`}
+                href={`mailto:${SITE.emailMoonmoon}`}
               >
-                {SITE.emailInfo}
+                {SITE.emailMoonmoon}
               </ReachCard>
               <div className="rounded-2xl border border-border/80 bg-white p-4 shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
                 <div className="flex items-start gap-4">
@@ -235,35 +254,11 @@ function Contact() {
               <div className="px-6 py-7 sm:px-8 sm:py-8">
                 <BlockHeading title="Send us an enquiry" />
                 <p className="-mt-3 mb-6 text-sm text-muted-foreground">
-                  Share a few details and we&apos;ll be in touch.
+                  Choose your enquiry type, fill in the form, then open your email
+                  app with everything pre-filled — you only need to press send.
                 </p>
 
-                {sent ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 p-5"
-                  >
-                    <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
-                    <div className="text-sm leading-relaxed">
-                      <p className="font-bold text-foreground">
-                        Your email draft is ready
-                      </p>
-                      <p className="mt-1 text-muted-foreground">
-                        We opened your mail app with your message — press send
-                        when you&apos;re ready. Or call{" "}
-                        <a
-                          href={`tel:${SITE.phonePrimary.replace(/\s/g, "")}`}
-                          className="font-semibold text-primary"
-                        >
-                          {SITE.phonePrimary}
-                        </a>
-                        .
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={submit} className="space-y-4">
+                <form onSubmit={submit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
                       <input
                         required
@@ -306,9 +301,14 @@ function Contact() {
                         id="interest"
                         required
                         value={form.interest}
-                        onChange={(e) =>
-                          setForm({ ...form, interest: e.target.value })
-                        }
+                        onChange={(e) => {
+                          const interest = e.target.value;
+                          setForm({
+                            ...form,
+                            interest,
+                            subject: subjectForInterest(interest),
+                          });
+                        }}
                         className={cn(field, !form.interest && "text-muted-foreground")}
                       >
                         <option value="" disabled>
@@ -320,6 +320,28 @@ function Contact() {
                           </option>
                         ))}
                       </select>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email-subject"
+                        className="mb-1.5 block text-xs font-semibold text-foreground"
+                      >
+                        Email subject
+                      </label>
+                      <input
+                        id="email-subject"
+                        required
+                        placeholder="Subject line in your email"
+                        value={form.subject}
+                        onChange={(e) =>
+                          setForm({ ...form, subject: e.target.value })
+                        }
+                        className={field}
+                      />
+                      <p className="mt-1.5 text-xs text-muted-foreground">
+                        Auto-filled from your enquiry type — you can edit before
+                        sending.
+                      </p>
                     </div>
                     <textarea
                       rows={4}
@@ -335,15 +357,15 @@ function Contact() {
                       type="submit"
                       className="glow-primary inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.01]"
                     >
-                      Send enquiry
+                      Open email to send
                       <ArrowRight className="h-4 w-4" />
                     </button>
                     <p className="flex items-center justify-center gap-2 text-center text-xs text-muted-foreground">
                       <Shield className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                      Your details are only used to respond to your enquiry.
+                      No server upload — opens{" "}
+                      {SITE.emailMoonmoon} in your mail app with your details.
                     </p>
-                  </form>
-                )}
+                </form>
               </div>
             </div>
           </Reveal>

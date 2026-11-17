@@ -44,7 +44,7 @@ export const Route = createFileRoute("/careers")({
 function Careers() {
   const [openRole, setOpenRole] = useState<number | null>(null);
 
-  const mailHref = `mailto:${SITE.emailInfo}?subject=${encodeURIComponent(CAREERS_PAGE.applySubject)}`;
+  const mailHref = `mailto:${SITE.emailMoonmoon}?subject=${encodeURIComponent(CAREERS_PAGE.applySubject)}`;
 
   return (
     <>

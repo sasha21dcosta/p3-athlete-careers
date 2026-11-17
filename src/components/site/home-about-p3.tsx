@@ -1,4 +1,5 @@
-import { MapPin, Medal, Venus } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, MapPin, Medal, Venus } from "lucide-react";
 
 import { FitIndiaBanner } from "@/components/site/fit-india-banner";
 import { Reveal, Stagger, StaggerItem } from "@/components/site/anim";
@@ -87,6 +88,16 @@ export function HomeAboutP3() {
 
           <Reveal delay={0.12} className="mt-5">
             <FitIndiaBanner text={ABOUT_P3_HOME.fitIndia} />
+          </Reveal>
+
+          <Reveal delay={0.14} className="mt-6">
+            <Link
+              to="/about"
+              className="glow-primary inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02]"
+            >
+              Our story
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Reveal>
 
         </div>

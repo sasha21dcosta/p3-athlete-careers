@@ -2,15 +2,14 @@ export const SITE = {
   name: "P3 Sports",
   tagline: "Play · Practice · Persevere",
   phonePrimary: "+91 99679 69506",
-  phoneSecondary: "+91 84518 22562",
+  phoneSecondary: "+91 93724 70748",
   phoneChandannagore: "+91 90516 33714",
-  emailInfo: "info@p3-sports.com",
   emailMoonmoon: "moonmoon@p3-sports.com",
   address: {
     line1: "P3 Sports Management & Academy",
-    line2: "Pawar Public School, Sangharsh Nagar",
-    line3: "Opp. MHADA Building No. 9, Chandivali",
-    line4: "Powai, Mumbai — 400072",
+    line2: "908, Fiorello, Nahar Amrit Shakti",
+    line3: "Chandivali, Powai",
+    line4: "Mumbai",
   },
   venueChandannagore:
     "Khalishani Mahavidyala, Chandannagore, Hooghly, West Bengal",
@@ -105,6 +104,8 @@ export type ServiceDetail = {
   waysWeHelp: string[];
   note: string;
   image: string;
+  /** Tailwind classes for service section hero image (e.g. zoom / object position). */
+  imageClass?: string;
   imageBadge?: string;
   /** When set, primary CTA on /services (e.g. Explore School Sports). */
   pageCta?: { label: string; to: string; hash?: string };
@@ -112,7 +113,23 @@ export type ServiceDetail = {
   servicePageTitle?: string;
   /** When set, shorter blurb on the home What we do grid only. */
   homeSummary?: string;
+  /** Residential societies shown on the club house service section. */
+  societyClients?: SocietyClient[];
 };
+
+export type SocietyClient = {
+  name: string;
+  location: string;
+};
+
+/** Society & clubhouse partners — Club House service on /services */
+export const CLUB_HOUSE_SOCIETY_CLIENTS: SocietyClient[] = [
+  { name: "Kanakia Rainforest", location: "Andheri East, Mumbai" },
+  { name: "Shapoorji Pallonji Vicinia", location: "Chandivali, Powai" },
+  { name: "Nahar Amrit Shakti", location: "Powai, Mumbai" },
+  { name: "Richmond", location: "Hiranandani, Powai" },
+  { name: "Raheja Vihar Society", location: "Powai, Mumbai" },
+];
 
 /** Detail sections for /services — one per home card (same titles as SERVICES_PUBLIC) */
 export const SERVICE_DETAILS: ServiceDetail[] = [
@@ -224,6 +241,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     ],
     note: "Management scope is defined with each client. Discuss your requirements so P3 can propose the right support model.",
     image: "/services/06-mentoring.jpg",
+    imageClass: "object-cover object-[center_42%]",
   },
   {
     id: "coaching-under-privileged",
@@ -283,6 +301,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     note: "Package duration, coach specialization and pricing are adjusted to your society’s needs. Enquire via contact for Moonmoon Mukherjee or Siddhesh Rampurkar — coaching, consultancy or full tournament management.",
     image: "/services/09-clubhouse.jpg",
     imageBadge: "Residential societies · Mumbai",
+    societyClients: CLUB_HOUSE_SOCIETY_CLIENTS,
   },
 ];
 
@@ -415,6 +434,7 @@ export type TeamMember = {
   bioCard?: string;
   photo: string;
   featured?: boolean;
+  linkedin?: string;
 };
 
 export const TEAM: TeamMember[] = [
@@ -676,7 +696,7 @@ export const TOURNAMENT_EVENTS: TournamentEvent[] = [
     prizes: "International women's table tennis — masters and open categories",
     eligibility:
       "Women players from India and across the world. Complete the official registration form for category details, fees and travel information.",
-    contacts: `${SITE.emailInfo} · ${SITE.phonePrimary}`,
+    contacts: `${SITE.emailMoonmoon} · ${SITE.phonePrimary}`,
   },
 ];
 
@@ -801,6 +821,7 @@ export const CAREER_PERKS = [
 
 /** Official sponsor logos from p3-sports.com home page */
 export const SPONSORS = [
+  { logo: "/sponsors/bajaj.png", alt: "Bajaj" },
   { logo: "/sponsors/official-1.jpg", alt: "P3 Sports sponsor" },
   { logo: "/sponsors/official-2.png", alt: "P3 Sports sponsor" },
   { logo: "/sponsors/official-3.png", alt: "P3 Sports sponsor" },

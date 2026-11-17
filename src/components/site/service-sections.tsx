@@ -10,6 +10,7 @@ import {
   Home,
   Medal,
   School,
+  MapPin,
   Trophy,
   Users,
   type LucideIcon,
@@ -17,7 +18,11 @@ import {
 
 import { AdditionalSupportBanner } from "@/components/site/cta-banner";
 import { Reveal } from "@/components/site/anim";
-import { SERVICE_DETAILS, type ServiceDetail } from "@/data/content";
+import {
+  SERVICE_DETAILS,
+  type ServiceDetail,
+  type SocietyClient,
+} from "@/data/content";
 import { cn } from "@/lib/utils";
 
 export const SERVICE_DETAIL_ICONS: LucideIcon[] = [
@@ -30,6 +35,95 @@ export const SERVICE_DETAIL_ICONS: LucideIcon[] = [
   HeartHandshake,
   School,
 ];
+
+/** Muted corner washes — matched to society card reference (soft, not neon). */
+const SOCIETY_CARD_THEMES = [
+  { from: "#f0c4ca", to: "#dfa0aa" },
+  { from: "#b8d4eb", to: "#93b9d9" },
+  { from: "#f2e0b8", to: "#dbc07a" },
+  { from: "#d2c4e4", to: "#b39bc9" },
+  { from: "#b8d9cc", to: "#8fbfad" },
+] as const;
+
+function SocietyPartnerCard({
+  client,
+  index,
+}: {
+  client: SocietyClient;
+  index: number;
+}) {
+  const theme = SOCIETY_CARD_THEMES[index % SOCIETY_CARD_THEMES.length];
+  const num = String(index + 1).padStart(2, "0");
+
+  return (
+    <li className="relative list-none min-h-[8.25rem] overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-4 pr-[38%] shadow-[0_6px_22px_rgba(15,23,42,0.07)] sm:min-h-[8.75rem] sm:p-5">
+      <div className="relative z-[2] flex items-center gap-2">
+        <span className="text-xs font-bold tabular-nums text-primary sm:text-[13px]">
+          {num}
+        </span>
+        <span className="h-px w-7 bg-primary/40" aria-hidden />
+      </div>
+      <h3 className="relative z-[2] mt-3 text-base font-bold leading-snug text-navy sm:text-[1.0625rem]">
+        {client.name}
+      </h3>
+      <p className="relative z-[2] mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-slate-500 sm:text-xs">
+        <MapPin
+          className="mt-0.5 h-3 w-3 shrink-0 text-primary/90"
+          strokeWidth={2.25}
+        />
+        {client.location}
+      </p>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 bottom-0 opacity-[0.97]"
+        style={{
+          width: "46%",
+          height: "72%",
+          background: `linear-gradient(135deg, ${theme.from} 0%, ${theme.to} 100%)`,
+          borderTopLeftRadius: "2.75rem",
+          clipPath: "polygon(24% 2%, 100% 0, 100% 100%, 0 100%)",
+        }}
+      />
+      <Building2
+        aria-hidden
+        className="pointer-events-none absolute bottom-4 right-4 z-[1] h-[1.65rem] w-[1.65rem] text-white/95 sm:h-7 sm:w-7"
+        strokeWidth={1.5}
+      />
+    </li>
+  );
+}
+
+function SocietyClientsStrip({ clients }: { clients: SocietyClient[] }) {
+  const rowOne = clients.slice(0, 3);
+  const rowTwo = clients.slice(3);
+
+  return (
+    <div className="mt-4 border-t border-border/45 pt-4 sm:mt-5 sm:pt-5">
+      <p className="flex items-center gap-2.5 text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+        <span className="h-px w-7 bg-primary/50" aria-hidden />
+        Societies we work with
+      </p>
+
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-3">
+        {rowOne.map((client, i) => (
+          <SocietyPartnerCard key={client.name} client={client} index={i} />
+        ))}
+      </ul>
+      {rowTwo.length > 0 ? (
+        <ul className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:mx-auto lg:mt-3 lg:max-w-[calc(66.666%+0.5rem)]">
+          {rowTwo.map((client, i) => (
+            <SocietyPartnerCard
+              key={client.name}
+              client={client}
+              index={i + 3}
+            />
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
 
 function ServiceTitle({ title }: { title: string }) {
   if (title.includes("&")) {
@@ -67,7 +161,10 @@ function ServiceImagePanel({
         <img
           src={detail.image}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover",
+            detail.imageClass,
+          )}
         />
         <div
           aria-hidden
@@ -194,6 +291,10 @@ export function ServiceDetailSection({
               </div>
             </Reveal>
           </div>
+
+          {detail.societyClients?.length ? (
+            <SocietyClientsStrip clients={detail.societyClients} />
+          ) : null}
         </div>
       </div>
     </section>
