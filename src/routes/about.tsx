@@ -1,14 +1,31 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { AboutPageContent } from "@/components/site/about-page";
+import { createFileRoute } from "@tanstack/react-router";
 
-/**
- * Standalone About page is disabled — content lives on the home page (#about-p3).
- * Nav “About Us” scrolls to that section; /about redirects there for old links.
- */
 export const Route = createFileRoute("/about")({
-  beforeLoad: () => {
-    throw redirect({
-      to: "/",
-      hash: "about-p3",
-    });
-  },
+  head: () => ({
+    meta: [
+      { title: "About P3 Sports — Idea Behind P3" },
+      {
+        name: "description",
+        content:
+          "P3 Sports Management is dedicated to building a healthier, more active and inclusive sporting culture — grassroots coaching, schools, corporates and communities across Mumbai and Kolkata.",
+      },
+      {
+        property: "og:title",
+        content: "About P3 Sports — Idea Behind P3",
+      },
+      {
+        property: "og:description",
+        content:
+          "More than sport — a movement for everyone. Coaching, community and world-class sporting experiences across India.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: About,
 });
+
+function About() {
+  return <AboutPageContent />;
+}

@@ -1,13 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Linkedin } from "lucide-react";
 
 import { Reveal, Stagger, StaggerItem } from "@/components/site/anim";
 import { getFounderMember, TEAM } from "@/data/content";
 
 const founder = getFounderMember();
+const HOME_TEAM_PREVIEW_NAMES = ["Tushar Kanti Ghosh", "Maxwel Mascarenhas"];
 const PREVIEW = [
   founder,
-  ...TEAM.filter((m) => !m.featured).slice(0, 2),
+  ...HOME_TEAM_PREVIEW_NAMES.flatMap((name) => {
+    const member = TEAM.find((m) => m.name === name);
+    return member ? [member] : [];
+  }),
 ];
 
 export function HomeTeamPromo() {

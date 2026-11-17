@@ -15,7 +15,7 @@ export type NavLinkItem = {
 
 export const NAV_LINKS: NavLinkItem[] = [
   { to: "/", label: "Home" },
-  { to: "/", label: "About Us", hash: "about-p3" },
+  { to: "/about", label: "About Us" },
   { to: "/services", label: "Our Services" },
   { to: "/school-sports", label: "School Sports" },
   { to: "/shepaddle", label: "ShePaddle", badge: "New" },
@@ -260,8 +260,8 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.emailInfo}`} className="hover:text-primary">
-                {SITE.emailInfo}
+              <a href={`mailto:${SITE.emailMoonmoon}`} className="hover:text-primary">
+                {SITE.emailMoonmoon}
               </a>
             </li>
             <li className="pt-2 leading-relaxed">
@@ -276,7 +276,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-navy-foreground/10 py-5 text-center text-xs text-navy-foreground/60">
-        © {new Date().getFullYear()} P3 Sports Management Company — your connect
+        © P3 Sports Management Company — your connect
         to the athlete within YOU.
       </div>
     </footer>

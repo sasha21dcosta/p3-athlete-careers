@@ -91,8 +91,14 @@ const HERO_SLIDES = [
       "max-lg:object-cover max-lg:object-[center_42%] lg:object-cover lg:object-center",
   },
   {
+    src: "/hero/slide-smash-book-launch.jpg",
+    alt: "Smash Her Story book launch with P3 Sports and ShePaddle",
+    imgClass:
+      "max-lg:object-cover max-lg:object-[center_38%] lg:object-cover lg:object-center",
+  },
+  {
     src: "/hero/slide-podcast.jpg",
-    alt: "P3 Sports — coaches and leaders in the media studio",
+    alt: "Moonmoon Mukherjee in the P3 Sports podcast studio",
     imgClass: "object-cover object-center",
   },
 ] as const;
@@ -260,7 +266,7 @@ function Hero() {
 
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-16 bg-gradient-to-r from-navy to-transparent sm:w-24 lg:block lg:w-28"
+              className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-24 bg-gradient-to-r from-navy to-transparent sm:w-36 lg:block lg:w-56"
             />
             <div
               aria-hidden
