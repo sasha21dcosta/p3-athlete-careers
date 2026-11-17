@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:static": "vite build",
+    "pack:deployment": "powershell -ExecutionPolicy Bypass -File scripts/pack-deployment.ps1",
+    "build:deployment": "npm run build:static && npm run pack:deployment",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "serve:deployment": "npx --yes serve deployment-ready -l 4173",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",

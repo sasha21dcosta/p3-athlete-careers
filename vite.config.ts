@@ -6,10 +6,41 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+const PUBLIC_ROUTES = [
+  "/",
+  "/about",
+  "/careers",
+  "/clients",
+  "/contact",
+  "/gallery",
+  "/services",
+  "/shepaddle",
+  "/team",
+  "/tournaments",
+] as const;
+
 export default defineConfig({
+  // Static Apache hosting — no Nitro / Cloudflare Worker deploy bundle.
+  nitro: false,
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
+    // Built server bundle is used only during the prerender pass (vite preview), not deployed.
     server: { entry: "server" },
+    spa: { enabled: false },
+    prerender: {
+      enabled: true,
+      crawlLinks: true,
+      autoStaticPathsDiscovery: true,
+      failOnError: true,
+    },
+    pages: PUBLIC_ROUTES.map((path) => ({ path })),
+    sitemap: {
+      enabled: true,
+      host: "https://www.p3-sports.com",
+    },
+  },
+  vite: {
+    build: {
+      outDir: "dist",
+    },
   },
 });
