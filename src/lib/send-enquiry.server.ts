@@ -25,7 +25,7 @@ export const sendEnquiry = createServerFn({ method: "POST" })
       );
     }
 
-    const to = process.env.ENQUIRY_TO_EMAIL ?? SITE.enquiryInbox;
+    const to = process.env.ENQUIRY_TO_EMAIL ?? SITE.email;
     const from =
       process.env.RESEND_FROM_EMAIL ??
       "P3 Sports Website <onboarding@resend.dev>";

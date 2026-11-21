@@ -121,10 +121,10 @@ function Clients() {
               Sponsor a championship, host an employee league or bring a
               coaching programme to your campus — write to us at{" "}
               <a
-                href={`mailto:${SITE.emailMoonmoon}`}
+                href={`mailto:${SITE.email}`}
                 className="font-semibold text-primary"
               >
-                {SITE.emailMoonmoon}
+                {SITE.email}
               </a>
             </p>
             <Link

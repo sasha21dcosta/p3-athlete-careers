@@ -59,7 +59,7 @@ function buildMailtoHref(form: {
   subject: string;
   message: string;
 }) {
-  const to = SITE.emailMoonmoon;
+  const to = SITE.email;
   const subject = form.subject.trim() || subjectForInterest(form.interest);
   const body = [
     "Hello P3 Sports,",
@@ -208,9 +208,9 @@ function Contact() {
               <ReachCard
                 icon={Mail}
                 label="Email"
-                href={`mailto:${SITE.emailMoonmoon}`}
+                href={`mailto:${SITE.email}`}
               >
-                {SITE.emailMoonmoon}
+                {SITE.email}
               </ReachCard>
               <div className="rounded-2xl border border-border/80 bg-white p-4 shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
                 <div className="flex items-start gap-4">
@@ -363,7 +363,7 @@ function Contact() {
                     <p className="flex items-center justify-center gap-2 text-center text-xs text-muted-foreground">
                       <Shield className="h-3.5 w-3.5 shrink-0" aria-hidden />
                       No server upload — opens{" "}
-                      {SITE.emailMoonmoon} in your mail app with your details.
+                      {SITE.email} in your mail app with your details.
                     </p>
                 </form>
               </div>

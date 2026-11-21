@@ -81,37 +81,6 @@ function SchoolSportsPage() {
           </div>
         </section>
 
-        <section className="grid gap-8 lg:grid-cols-[minmax(0,280px)_1fr]">
-          <Reveal>
-            <div className="overflow-hidden rounded-2xl border-2 border-primary/25">
-              <img
-                src={SCHOOL_SPORTS.founderSpotlight.photo}
-                alt={SCHOOL_SPORTS.founderSpotlight.name}
-                className="aspect-[4/5] w-full object-cover object-top"
-                width={560}
-                height={700}
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="text-xs font-bold tracking-[0.22em] text-primary uppercase">
-              Face behind P3 Sports
-            </p>
-            <h2 className="font-display mt-2 text-3xl text-foreground">
-              Led by {SCHOOL_SPORTS.founderSpotlight.name}
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-muted-foreground">
-              {SCHOOL_SPORTS.founderSpotlight.role}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {SCHOOL_SPORTS.founderSpotlight.highlights}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {SCHOOL_SPORTS.founderSpotlight.vision}
-            </p>
-          </Reveal>
-        </section>
-
         <section>
           <SectionHeading
             eyebrow="Our approach"

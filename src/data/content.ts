@@ -4,7 +4,7 @@ export const SITE = {
   phonePrimary: "+91 99679 69506",
   phoneSecondary: "+91 93724 70748",
   phoneChandannagore: "+91 90516 33714",
-  emailMoonmoon: "moonmoon@p3-sports.com",
+  email: "foundersoffice@p3-sports.com",
   address: {
     line1: "P3 Sports Management & Academy",
     line2: "908, Fiorello, Nahar Amrit Shakti",
@@ -376,6 +376,42 @@ export const FOUNDER_TAGLINE =
 export const FOUNDER_PULL_QUOTE =
   "A passionate player who has served table tennis all her life — performing, mentoring and encouraging the game — and a woman recognized on international forums.";
 
+/** Our Team — founder block (full layout copy) */
+export const FOUNDER_TEAM_SECTION = {
+  eyebrow: "Our founder",
+  name: "Moonmoon Mukherjee",
+  titles:
+    "Sports Entrepreneur | Founder | Business Leader | Sports Industry Visionary",
+  roleBadge: "Founder & CEO, P3 Sports",
+  introQuote:
+    "Moonmoon Mukherjee is a dynamic sports entrepreneur, founder, and business leader who is passionate about transforming the sports landscape through entrepreneurship, innovation, and strategic leadership.",
+  body: [
+    "With a strong foundation in international Table Tennis, Moonmoon has successfully extended her vision beyond the playing field, establishing herself as a sports industry professional focused on building sustainable sporting platforms, creating business opportunities, and empowering the next generation of athletes.",
+    "As a founder and entrepreneur, she believes in developing sports not merely as a competitive activity but as a structured industry with enormous potential for business growth, employment generation, talent development, and social impact.",
+  ],
+  belief: {
+    title: "Her Belief",
+    body: "The future of sports lies in professional management, innovative business models, corporate partnerships, and a sustainable ecosystem that supports athletes at every stage of their careers.",
+  },
+  vision: {
+    title: "Her Vision",
+    body: "To contribute to the evolution of the sports industry by building institutions, creating opportunities, encouraging entrepreneurship, and making sports a powerful vehicle for economic and social development.",
+  },
+  leadershipFocusTitle: "Leadership Focus",
+  leadershipFocus: [
+    { label: "Sports Infrastructure" },
+    { label: "Tournament Management" },
+    { label: "Athlete Development" },
+    { label: "Strategic Partnerships" },
+    { label: "Sports Promotion" },
+    {
+      label: "Connect Talent with Opportunities",
+    },
+  ],
+  closingQuote:
+    "For Moonmoon Mukherjee, sports is more than a passion. It is a platform for leadership, and an opportunity to create lasting impact.",
+} as const;
+
 export const FOUNDER_JOURNEY =
   "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India — the nation's only woman ITTF Certified Level-3 Coach and an International Umpire. She has represented India, Bengal, UP and Indian Railways, works as a sports consultant, and has won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand. She founded and shaped P3 Sports, where coaching, mentoring and corporate and community events continue under her guidance.";
 
@@ -440,11 +476,12 @@ export type TeamMember = {
 export const TEAM: TeamMember[] = [
   {
     name: "Moonmoon Mukherjee",
-    role: "Founder — P3 Sports",
+    role: "Founder & CEO, P3 Sports",
     initials: "MM",
     featured: true,
     photo: "/team/moonmoon.jpg",
-    bio: "Moonmoon Mukherjee is a reputed table tennis player of international repute who has brought laurels to India and is a pride for the nation as the only Indian woman to become an ITTF Certified Level 3 Coach. With exceptional natural talent and sharp sports acumen, she has been a top performer nationally and internationally. Moonmoon took up the call to mentor and design the foundations of P3 Sports; under her guidance the company has grown to commendable levels of recognition, coaching and mentoring sportsmen while organizing corporate and social championships.\n\nAn ITTF Level-3 Coach, International Umpire and sports consultant, she has represented India, Bengal, UP and Indian Railways, and won international and world championship medals in Greece, Spain, Vietnam, Turkey and New Zealand.",
+    linkedin: "https://www.linkedin.com/in/moonmoon-mukherjee-50848811/",
+    bio: `${FOUNDER_TEAM_SECTION.body[0]}\n\n${FOUNDER_TEAM_SECTION.body[1]}`,
   },
   {
     name: "Tushar Kanti Ghosh",
@@ -696,7 +733,7 @@ export const TOURNAMENT_EVENTS: TournamentEvent[] = [
     prizes: "International women's table tennis — masters and open categories",
     eligibility:
       "Women players from India and across the world. Complete the official registration form for category details, fees and travel information.",
-    contacts: `${SITE.emailMoonmoon} · ${SITE.phonePrimary}`,
+    contacts: `${SITE.email} · ${SITE.phonePrimary}`,
   },
 ];
 

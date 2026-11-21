@@ -260,8 +260,8 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.emailMoonmoon}`} className="hover:text-primary">
-                {SITE.emailMoonmoon}
+              <a href={`mailto:${SITE.email}`} className="hover:text-primary">
+                {SITE.email}
               </a>
             </li>
             <li className="pt-2 leading-relaxed">

@@ -47,10 +47,10 @@ function Team() {
         sub="Reputed sports experts and industry professionals guiding coaching, events and community programmes across India."
       />
 
-      <FounderSpotlightSection className="relative overflow-hidden border-y border-primary/10 bg-gradient-to-b from-secondary/30 via-background to-background py-12 sm:py-16" />
+      <FounderSpotlightSection className="border-y border-border/60" />
 
       <section className="pb-12 sm:pb-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-5 lg:px-6">
           <Reveal delay={0.1}>
             <div className="flex items-center gap-3 sm:mt-2">
               <span className="h-px flex-1 bg-border" aria-hidden />

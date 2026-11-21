@@ -78,16 +78,6 @@ export const SCHOOL_SPORTS = {
     },
   ] as const,
 
-  founderSpotlight: {
-    name: "Moonmoon Mukherjee",
-    role: "Founder & CEO, P3 Sports",
-    photo: "/team/moonmoon.jpg",
-    highlights:
-      "International table tennis player; India's first and only woman ITTF Level 3 certified coach; 40+ national & international medals.",
-    vision:
-      "Her driving vision was to create a common platform for professionals rekindling their passion for sport, amateurs seeking quality training, and masters willing to share expertise.",
-  },
-
   values: {
     title: "Our values",
     body: "At the heart of P3 is the best learning ground tailored to each student's athletic ability and overall well-being. No one should be left out — programmes and services are shaped to your school's specific needs.",
