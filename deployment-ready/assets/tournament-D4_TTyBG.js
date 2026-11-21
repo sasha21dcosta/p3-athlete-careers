@@ -1,1 +1,0 @@
-var e=`/assets/tournament-Qg5-gu4Q.jpg`;export{e as t};

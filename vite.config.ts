@@ -17,6 +17,7 @@ const PUBLIC_ROUTES = [
   "/shepaddle",
   "/team",
   "/tournaments",
+  "/school-sports",
 ] as const;
 
 export default defineConfig({

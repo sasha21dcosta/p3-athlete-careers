@@ -265,10 +265,10 @@ function Careers() {
             <p className="mt-6 text-sm font-semibold text-foreground">
               <Mail className="mr-2 inline h-4 w-4 text-primary" />
               <a
-                href={`mailto:${SITE.emailInfo}`}
+                href={`mailto:${SITE.emailMoonmoon}`}
                 className="text-primary hover:underline"
               >
-                {SITE.emailInfo}
+                {SITE.emailMoonmoon}
               </a>
             </p>
             <p className="mt-2 text-xs text-muted-foreground">

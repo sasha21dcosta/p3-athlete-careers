@@ -1,1 +1,0 @@
-var e=`/assets/coaching-DhbCCdRL.jpg`;export{e as t};
