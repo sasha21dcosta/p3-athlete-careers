@@ -167,7 +167,7 @@ export function ShePaddleHeroPhoto({ className }: { className?: string }) {
       <img
         src={SHEPADDLE.images.homeHero}
         alt="ShePaddle athletes at the Woman Empowerment launch backdrop"
-        className="h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full object-cover object-[center_38%]"
         loading="lazy"
         width={1200}
         height={900}

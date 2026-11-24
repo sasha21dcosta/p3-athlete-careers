@@ -63,7 +63,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const HERO_SLIDE_MS = 4800;
+const HERO_SLIDE_MS = 6500;
 const HERO_CROSSFADE = { duration: 0.95, ease: [0.33, 1, 0.68, 1] as const };
 
 const HERO_SLIDES = [

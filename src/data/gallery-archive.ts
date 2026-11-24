@@ -16,6 +16,22 @@ export type GalleryArchiveItem = {
 
 const ARCHIVE_BASE = "/gallery/p3-archive";
 
+/** Recently added event photos (shown first in the gallery grid) */
+const GALLERY_FEATURED: GalleryArchiveItem[] = [
+  {
+    id: "p3-gallery-doctor-indoor-games-2017",
+    title: "Doctor Indoor Games 2017",
+    category: "Corporate",
+    previewCaption: "P3 Sports at Doctor Indoor Games 2017 — Wockhardt Life Wins",
+  },
+  {
+    id: "p3-gallery-total-badminton-court",
+    title: "Team on court — Total partnership",
+    category: "Academy",
+    previewCaption: "P3 Sports team at a Total-backed badminton court session",
+  },
+];
+
 const GALLERY_COUNT = 55;
 
 const CATEGORY_CYCLE: GalleryCategory[] = [
