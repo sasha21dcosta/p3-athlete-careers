@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Mail,
-  MapPin,
   Phone,
   Shield,
 } from "lucide-react";
@@ -19,7 +18,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Get in touch with P3 Sports — academy admissions, tournament entries, corporate programmes and partnerships. Powai, Mumbai.",
+          "Get in touch with P3 Sports — academy admissions, tournament entries, corporate programmes and partnerships.",
       },
       { property: "og:title", content: "Contact — P3 Sports" },
       {
@@ -190,7 +189,7 @@ function Contact() {
             <div className="space-y-3">
               <ReachCard
                 icon={Phone}
-                label="Mumbai — Academy & Events"
+                label="Phone"
                 href={`tel:${SITE.phonePrimary.replace(/\s/g, "")}`}
               >
                 <p>{SITE.phonePrimary}</p>
@@ -199,53 +198,12 @@ function Contact() {
                 </p>
               </ReachCard>
               <ReachCard
-                icon={Phone}
-                label="Chandannagore centre"
-                href={`tel:${SITE.phoneChandannagore.replace(/\s/g, "")}`}
-              >
-                {SITE.phoneChandannagore}
-              </ReachCard>
-              <ReachCard
                 icon={Mail}
                 label="Email"
                 href={`mailto:${SITE.email}`}
               >
                 {SITE.email}
               </ReachCard>
-              <div className="rounded-2xl border border-border/80 bg-white p-4 shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
-                <div className="flex items-start gap-4">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
-                    <MapPin className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <div className="min-w-0 text-sm">
-                    <p className="text-[10px] font-bold tracking-[0.18em] text-muted-foreground uppercase">
-                      Mumbai
-                    </p>
-                    <p className="mt-1 font-bold text-foreground">
-                      {SITE.address.line1}
-                    </p>
-                    <p className="mt-1 leading-relaxed text-muted-foreground">
-                      {SITE.address.line2}, {SITE.address.line3},
-                      <br />
-                      {SITE.address.line4}
-                    </p>
-                  </div>
-                </div>
-                <div className="my-4 h-px bg-border" />
-                <div className="flex items-start gap-4">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
-                    <MapPin className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <div className="min-w-0 text-sm">
-                    <p className="text-[10px] font-bold tracking-[0.18em] text-muted-foreground uppercase">
-                      Chandannagore
-                    </p>
-                    <p className="mt-1 leading-relaxed text-muted-foreground">
-                      {SITE.venueChandannagore}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </Reveal>
 

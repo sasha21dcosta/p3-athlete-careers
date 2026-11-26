@@ -3,16 +3,7 @@ export const SITE = {
   tagline: "Play · Practice · Persevere",
   phonePrimary: "+91 99679 69506",
   phoneSecondary: "+91 93724 70748",
-  phoneChandannagore: "+91 90516 33714",
   email: "foundersoffice@p3-sports.com",
-  address: {
-    line1: "P3 Sports Management & Academy",
-    line2: "908, Fiorello, Nahar Amrit Shakti",
-    line3: "Chandivali, Powai",
-    line4: "Mumbai",
-  },
-  venueChandannagore:
-    "Khalishani Mahavidyala, Chandannagore, Hooghly, West Bengal",
   facebook: "https://www.facebook.com/P3.sport/",
   linkedin: "https://www.linkedin.com/company/p3-sports-management-company",
   instagram: "https://www.instagram.com/p3sportsindia",

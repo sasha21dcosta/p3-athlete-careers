@@ -264,14 +264,6 @@ export function Footer() {
                 {SITE.email}
               </a>
             </li>
-            <li className="pt-2 leading-relaxed">
-              {SITE.address.line2}, {SITE.address.line3}
-              <br />
-              {SITE.address.line4}
-            </li>
-            <li className="pt-1 leading-relaxed">
-              Also at: {SITE.venueChandannagore}
-            </li>
           </ul>
         </div>
       </div>
